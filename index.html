@@ -47,7 +47,8 @@
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;    color: inherit;
+    gap: 0.5rem;
+    color: inherit;
     cursor: pointer;
   }
   .app-title img { display: block; width: auto; flex-shrink: 0; }
@@ -96,7 +97,8 @@
     font-size: 1.2rem;
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }  .toggle-panel-btn:hover { background: #772ce8; }
+  }
+  .toggle-panel-btn:hover { background: #772ce8; }
   .header {
     background: rgba(14, 14, 16, 0.95);
     backdrop-filter: blur(10px);
@@ -145,7 +147,8 @@
     display: flex;
     gap: 0.5rem;
     margin-bottom: 0.8rem;
-    flex-wrap: wrap;  }
+    flex-wrap: wrap;
+  }
   .quick-add-input {
     flex: 1;
     min-width: 250px;
@@ -194,7 +197,8 @@
   button {
     background: #9146ff; color: white; border: none;
     padding: 0.6rem 1rem; border-radius: 6px; font-weight: 600;
-    cursor: pointer; transition: background 0.2s; font-size: 0.9rem; white-space: nowrap;  }
+    cursor: pointer; transition: background 0.2s; font-size: 0.9rem; white-space: nowrap;
+  }
   button:hover:not(:disabled) { background: #772ce8; }
   button:disabled { opacity: 0.4; cursor: not-allowed; }
   button.secondary { background: #2d2d33; }
@@ -243,7 +247,8 @@
     width: 14px; height: 14px; background: #6d6d78;
     border-radius: 50%; transition: all 0.2s;
   }
-  .toggle input:checked + .toggle-switch { background: #9146ff; }  .toggle input:checked + .toggle-switch::after { left: 16px; background: white; }
+  .toggle input:checked + .toggle-switch { background: #9146ff; }
+  .toggle input:checked + .toggle-switch::after { left: 16px; background: white; }
   .grid-container { flex: 1; overflow-y: auto; padding: 1rem; }
   .grid {
     display: grid;
@@ -292,7 +297,8 @@
     font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .channel-stats { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; }  .stat { display: flex; justify-content: space-between; align-items: center; }
+  .channel-stats { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; }
+  .stat { display: flex; justify-content: space-between; align-items: center; }
   .stat-label { color: #adadb8; }
   .stat-value { font-weight: 600; color: #efeff1; }
   .stat-value.viewers { color: #ff69b4; }
@@ -341,7 +347,8 @@
     width: 80px; height: 80px; border-radius: 50%;
     margin-bottom: 0.5rem; border: 3px solid #2d2d33;
   }
-  .player-offline .name { font-weight: 700; color: #adadb8; font-size: 0.9rem; }  .player-offline .status { font-size: 0.75rem; margin-top: 0.3rem; }
+  .player-offline .name { font-weight: 700; color: #adadb8; font-size: 0.9rem; }
+  .player-offline .status { font-size: 0.75rem; margin-top: 0.3rem; }
   .player-overlay {
     position: absolute; top: 0; left: 0; right: 0; padding: 0.5rem;
     background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
@@ -390,7 +397,8 @@
   .close-btn:hover { color: #efeff1; }
   .manage-list {
     max-height: 400px; overflow-y: auto; background: #0e0e10;
-    border-radius: 8px; padding: 0.5rem; margin-bottom: 1rem;  }
+    border-radius: 8px; padding: 0.5rem; margin-bottom: 1rem;
+  }
   .manage-item {
     display: flex; align-items: center; gap: 0.8rem;
     padding: 0.6rem 0.8rem; border-bottom: 1px solid #2d2d33;
@@ -439,7 +447,8 @@
   .preview-box {
     display: flex; align-items: center; gap: 1rem;
     padding: 1rem; background: #0e0e10; border-radius: 8px; margin-top: 1rem;
-  }  .preview-box img { max-width: 100px; max-height: 100px; border-radius: 8px; }
+  }
+  .preview-box img { max-width: 100px; max-height: 100px; border-radius: 8px; }
   .info-tag {
     display: inline-flex; align-items: center; justify-content: center;
     width: 18px; height: 18px; border-radius: 50%;
@@ -488,7 +497,8 @@
   .help-warning {
     background: #3d1f1f; border-left: 3px solid #eb0400;
     padding: 0.6rem 0.8rem; border-radius: 6px;
-    font-size: 0.85rem; color: #ffb3b3; margin-top: 1rem;  }
+    font-size: 0.85rem; color: #ffb3b3; margin-top: 1rem;
+  }
 </style>
 </head>
 <body>
@@ -537,6 +547,7 @@
     </div>
   </div>
 </div>
+
 <div class="header" id="header">
   <div class="container">
     <div class="channels-panel">
@@ -586,6 +597,7 @@
         </div>
       </div>
     </div>
+
     <div class="keywords-panel">
       <div class="keywords-header">
         <h3>🔔 Alertas por palabras clave</h3>
@@ -635,7 +647,8 @@
         <button id="resetCustomBtn" class="secondary">🔄 Resetear</button>
         <button id="removeLogoBtn" class="danger">❌ Quitar logo</button>
       </div>
-      <div class="preview-box" id="previewBox" style="display:none;">        <img id="previewLogo" src="" alt="Logo" />
+      <div class="preview-box" id="previewBox" style="display:none;">
+        <img id="previewLogo" src="" alt="Logo" />
         <div>
           <div style="font-weight:700; margin-bottom:0.3rem;" id="previewTitle">Título</div>
           <div style="font-size:0.85rem; color:#adadb8;">Vista previa</div>
@@ -684,7 +697,8 @@
     <div style="display:flex; gap:0.5rem; margin-bottom:0.8rem; flex-wrap:wrap;">
       <button id="selectAllBtn" class="secondary" style="font-size:0.8rem; padding:0.4rem 0.8rem;">✅ Todos</button>
       <button id="deselectAllBtn" class="secondary" style="font-size:0.8rem; padding:0.4rem 0.8rem;">⬜ Ninguno</button>
-    </div>    <div class="manage-list" id="manageList"></div>
+    </div>
+    <div class="manage-list" id="manageList"></div>
     <div class="import-export-area">
       <h3>📋 Importar / Exportar</h3>
       <div class="ie-buttons">
@@ -734,6 +748,7 @@ $('alertsEnabledToggle').checked = alertsEnabled;
 $('soundEnabledToggle').checked = soundEnabled;
 $('muteAllToggle').checked = globalMuted;
 updateMuteLabel();
+
 if (localStorage.getItem('tw_privacy_hidden') === 'true') $('privacyBanner').classList.add('hidden');
 if (localStorage.getItem('tw_credentials_hidden') === 'true') {
   $('credentialsSection').classList.remove('show');
@@ -782,7 +797,8 @@ $('authBtn').addEventListener('click', authenticate);
 $('refreshBtn').addEventListener('click', () => { clearTimeout(pollTimer); refreshAll(); });
 $('closeManageBtn').addEventListener('click', () => $('manageModal').classList.remove('active'));
 $('manageChannelsBtn').addEventListener('click', openManage);
-$('selectAllBtn').addEventListener('click', () => toggleAll(true));$('deselectAllBtn').addEventListener('click', () => toggleAll(false));
+$('selectAllBtn').addEventListener('click', () => toggleAll(true));
+$('deselectAllBtn').addEventListener('click', () => toggleAll(false));
 $('exportBtn').addEventListener('click', exportClipboard);
 $('exportFileBtn').addEventListener('click', exportFile);
 $('importFileBtn').addEventListener('click', () => $('importFileInput').click());
@@ -831,7 +847,8 @@ $('customBgImageFile').addEventListener('change', (e) => handleImageUpload(e, 'b
 function handleImageUpload(e, key) {
   const file = e.target.files[0];
   if (!file) return;
-  if (file.size > 3 * 1024 * 1024) { showToast('⚠️ La imagen es muy grande (máx 3MB)'); e.target.value = ''; return; }  const reader = new FileReader();
+  if (file.size > 3 * 1024 * 1024) { showToast('⚠️ La imagen es muy grande (máx 3MB)'); e.target.value = ''; return; }
+  const reader = new FileReader();
   reader.onload = (ev) => {
     customConfig[key] = ev.target.result;
     if (key === 'logo') $('customLogo').value = '[Archivo local]';
@@ -881,6 +898,7 @@ updateViewButtons();
 updateLayoutButtons();
 renderKeywordsList();
 updateChannelCount();
+
 if (channels.length > 0) {
   renderGrid();
   if (localStorage.getItem('tw_client_id') && localStorage.getItem('tw_client_secret')) {
@@ -929,7 +947,8 @@ function resetCustomConfig() {
 }
 
 function applyCustomization() {
-  const titleEl = $('appTitle');  const displayTitle = customConfig.title || '🎮 Twitch Multi-View by KYEROU';
+  const titleEl = $('appTitle');
+  const displayTitle = customConfig.title || '🎮 Twitch Multi-View by KYEROU';
   const titleSize = customConfig.titleSize || 24;
   const logoSize = customConfig.logoSize || 32;
   titleEl.style.fontSize = titleSize + 'px';
@@ -978,7 +997,8 @@ function updateViewButtons() {
 }
 
 function setLayout(layout) {
-  currentLayout = layout;  localStorage.setItem('tw_layout', layout);
+  currentLayout = layout;
+  localStorage.setItem('tw_layout', layout);
   updateLayoutButtons();
   updateGridLayout();
 }
@@ -1027,6 +1047,7 @@ function toggleAll(enable) {
   renderManageList();
   updateChannelCount();
 }
+
 function updateChannelCount() {
   const active = getActiveChannels().length;
   const total = channels.length;
@@ -1076,7 +1097,8 @@ function importFile(e) {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = ev => {
-    try {      const data = JSON.parse(ev.target.result);
+    try {
+      const data = JSON.parse(ev.target.result);
       if (data.channels && Array.isArray(data.channels)) {
         channels = [...new Set([...channels, ...data.channels.map(c => c.toLowerCase().trim()).filter(Boolean)])];
         if (data.disabled) disabledChannels = [...new Set([...disabledChannels, ...data.disabled.filter(c => channels.includes(c))])];
@@ -1125,7 +1147,8 @@ function importRawText(text, replace) {
 
 function saveChannels() {
   localStorage.setItem('tw_channels', JSON.stringify(channels));
-  localStorage.setItem('tw_disabled', JSON.stringify(disabledChannels));}
+  localStorage.setItem('tw_disabled', JSON.stringify(disabledChannels));
+}
 
 function showToast(msg) {
   const existing = document.querySelector('.toast');
@@ -1174,7 +1197,8 @@ function playAlertSound() {
     g1.gain.setValueAtTime(0, now);
     g1.gain.linearRampToValueAtTime(0.3, now + 0.01);
     g1.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
-    osc1.start(now); osc1.stop(now + 0.15);    const osc2 = audioCtx.createOscillator();
+    osc1.start(now); osc1.stop(now + 0.15);
+    const osc2 = audioCtx.createOscillator();
     const g2 = audioCtx.createGain();
     osc2.connect(g2); g2.connect(audioCtx.destination);
     osc2.type = 'sine';
@@ -1223,7 +1247,8 @@ function setFilter(f) {
   updateFilterButtons();
   applyFilters();
 }
-function updateFilterButtons() {  $('filterAllBtn').className = currentFilter === 'all' ? 'active' : 'secondary';
+function updateFilterButtons() {
+  $('filterAllBtn').className = currentFilter === 'all' ? 'active' : 'secondary';
   $('filterLiveBtn').className = currentFilter === 'live' ? 'active' : 'secondary';
   $('filterAlertBtn').className = currentFilter === 'alert' ? 'active' : 'secondary';
 }
@@ -1272,7 +1297,8 @@ async function authenticate() {
 function removeChannel(ch) {
   if (!confirm(`¿Eliminar ${ch}?`)) return;
   channels = channels.filter(c => c !== ch);
-  disabledChannels = disabledChannels.filter(c => c !== ch);  delete channelData[ch];
+  disabledChannels = disabledChannels.filter(c => c !== ch);
+  delete channelData[ch];
   disconnectChat(ch);
   destroyPlayer(ch);
   saveChannels();
@@ -1321,7 +1347,8 @@ function renderAvatarView(grid, active) {
       if (channelData[ch]?.mentioned) dismissAlert(ch);
       window.open(`https://twitch.tv/${ch}`, '_blank');
     });
-  });}
+  });
+}
 
 function renderMultiView(grid, active) {
   const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%230e0e10" width="100" height="100"/%3E%3Ctext x="50" y="55" text-anchor="middle" fill="%236d6d78" font-size="40"%3E?%3C/text%3E%3C/svg%3E';
@@ -1370,7 +1397,8 @@ function createPlayerCard(ch, placeholder) {
         <div class="viewers" data-viewers style="display:${d.live ? '' : 'none'}">${(d.viewers||0).toLocaleString()} viewers</div>
       </div>
       <div class="player-controls">
-        <button data-mute-btn onclick="event.stopPropagation(); togglePlayerMute('${esc(ch)}')" class="${isMuted ? 'muted' : ''}" title="${isMuted ? 'Activar audio' : 'Silenciar'}" style="display:${d.live ? '' : 'none'}">${isMuted ? '🔇' : '🔊'}</button>        <button onclick="event.stopPropagation(); window.open('https://twitch.tv/${esc(ch)}','_blank')" title="Abrir en Twitch">↗</button>
+        <button data-mute-btn onclick="event.stopPropagation(); togglePlayerMute('${esc(ch)}')" class="${isMuted ? 'muted' : ''}" title="${isMuted ? 'Activar audio' : 'Silenciar'}" style="display:${d.live ? '' : 'none'}">${isMuted ? '🔇' : '🔊'}</button>
+        <button onclick="event.stopPropagation(); window.open('https://twitch.tv/${esc(ch)}','_blank')" title="Abrir en Twitch">↗</button>
       </div>
     </div>
   `;
@@ -1419,7 +1447,8 @@ function updatePlayerCardsUI() {
     const offlineOverlay = card.querySelector('[data-offline-overlay]');
     if (offlineOverlay) {
       offlineOverlay.style.display = d.live ? 'none' : 'flex';
-      const img = offlineOverlay.querySelector('img');      if (img && d.avatar && img.src !== d.avatar) img.src = d.avatar;
+      const img = offlineOverlay.querySelector('img');
+      if (img && d.avatar && img.src !== d.avatar) img.src = d.avatar;
     }
     const muteBtn = card.querySelector('[data-mute-btn]');
     if (muteBtn) {
@@ -1468,7 +1497,8 @@ function updateCardUI(ch) {
   } else updatePlayerCardsUI();
 }
 
-function applyFilters() {  const active = getActiveChannels();
+function applyFilters() {
+  const active = getActiveChannels();
   let filtered = active;
   if (currentFilter === 'live') filtered = active.filter(c => channelData[c]?.live);
   else if (currentFilter === 'alert') filtered = active.filter(c => channelData[c]?.mentioned);
@@ -1517,7 +1547,8 @@ async function refreshAll() {
   if (active.length === 0) {
     setApiStatus('Sin canales activos', '');
     clearTimeout(pollTimer);
-    pollTimer = setTimeout(refreshAll, 30000);    return;
+    pollTimer = setTimeout(refreshAll, 30000);
+    return;
   }
   setApiStatus('Actualizando...', '');
   try {
@@ -1566,6 +1597,7 @@ async function refreshAll() {
   clearTimeout(pollTimer);
   pollTimer = setTimeout(refreshAll, 30000);
 }
+
 async function twitchFetch(ep) {
   const r = await fetch(`https://api.twitch.tv/helix/${ep}`, {
     headers: { 'Client-ID': $('clientId').value.trim(), 'Authorization': `Bearer ${accessToken}` }
@@ -1615,7 +1647,8 @@ function parseIrcMessage(channel, raw) {
   let rest = raw;
   if (raw.startsWith('@')) {
     const si = raw.indexOf(' ');
-    raw.substring(1, si).split(';').forEach(p => {      const i = p.indexOf('=');
+    raw.substring(1, si).split(';').forEach(p => {
+      const i = p.indexOf('=');
       if (i > -1) tags[p.substring(0,i)] = p.substring(i+1);
     });
     rest = raw.substring(si+1);
@@ -1632,7 +1665,7 @@ function parseIrcMessage(channel, raw) {
   }
 }
 
-function esc(s) { return String(s).replace(/[&<>"']/g, c=>({'&':'&','<':'<','>':'>','"':'"',"'":'''}[c])); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function setTokenStatus(t,s) { $('tokenStatus').textContent=t; $('tokenDot').className='status-dot '+(s==='ok'?'ok':s==='error'?'error':''); }
 function setApiStatus(t,s) { $('apiStatus').textContent=t; $('apiDot').className='status-dot '+(s==='ok'?'ok':s==='error'?'error':''); }
 function updateChatStatus() {
