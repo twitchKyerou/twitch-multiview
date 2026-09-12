@@ -180,70 +180,20 @@ button.success:hover:not(:disabled) { background: #15703d; }
 .sound-row input[type="text"] { flex: 1; min-width: 150px; padding: 0.5rem 0.7rem; background: #0e0e10; border: 1px solid #3a3a44; border-radius: 6px; color: #efeff1; font-size: 0.85rem; }
 .sound-row input[type="text"]:focus { outline: none; border-color: #ffd700; }
 .sound-label { font-size: 0.8rem; color: #adadb8; }
-.sound-status { font-size: 0.75rem; color: #4ade80; }
+.sound-status { font-size: 0.75rem; color: #4ade80; min-width: 40px; text-align: right; }
 
-.hide-config-bottom {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid #2d2d33;
-}
-.hide-config-bottom button {
-  background: linear-gradient(135deg, #9146ff, #772ce8);
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
-  box-shadow: 0 4px 12px rgba(145, 70, 255, 0.3);
-}
-.hide-config-bottom button:hover {
-  background: linear-gradient(135deg, #772ce8, #6420c4);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(145, 70, 255, 0.4);
-}
+.hide-config-bottom { display: flex; justify-content: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #2d2d33; }
+.hide-config-bottom button { background: linear-gradient(135deg, #9146ff, #772ce8); padding: 0.8rem 2rem; font-size: 1rem; box-shadow: 0 4px 12px rgba(145, 70, 255, 0.3); }
+.hide-config-bottom button:hover { background: linear-gradient(135deg, #772ce8, #6420c4); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(145, 70, 255, 0.4); }
 
-.config-footer {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid #2d2d33;
-  text-align: center;
-}
-.footer-text {
-  font-size: 0.9rem;
-  color: #adadb8;
-  margin-bottom: 0.8rem;
-}
-.footer-link {
-  color: #9146ff;
-  text-decoration: none;
-  font-weight: 600;
-}
+.config-footer { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #2d2d33; text-align: center; }
+.footer-text { font-size: 0.9rem; color: #adadb8; margin-bottom: 0.8rem; }
+.footer-link { color: #9146ff; text-decoration: none; font-weight: 600; }
 .footer-link:hover { text-decoration: underline; }
-.footer-socials {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-.social-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #2d2d33;
-  color: #efeff1;
-  transition: all 0.2s;
-  text-decoration: none;
-}
-.social-icon:hover {
-  background: #9146ff;
-  transform: translateY(-2px);
-}
-.social-icon svg {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
-}
+.footer-socials { display: flex; justify-content: center; gap: 1rem; }
+.social-icon { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: #2d2d33; color: #efeff1; transition: all 0.2s; text-decoration: none; }
+.social-icon:hover { background: #9146ff; transform: translateY(-2px); }
+.social-icon svg { width: 20px; height: 20px; fill: currentColor; }
 </style>
 </head>
 <body>
@@ -364,35 +314,42 @@ button.success:hover:not(:disabled) { background: #15703d; }
       <div style="margin-top:1rem; padding-top:0.8rem; border-top:1px solid #2d2d33;">
         <span class="sound-label">🎵 Sonido de alerta personalizado:</span>
         <div class="sound-row">
-          <input type="text" id="alertSoundUrl" placeholder="URL del audio (ej: https://...)" />
+          <input type="text" id="alertSoundUrl" placeholder="URL del audio" style="flex:2" />
           <span class="sound-label">o</span>
-          <input type="file" id="alertSoundFile" accept="audio/*" style="font-size:0.8rem;" />
+          <input type="file" id="alertSoundFile" accept="audio/*" style="font-size:0.8rem; flex:1" />
           <button id="clearSoundBtn" class="danger" style="padding:0.4rem 0.8rem; font-size:0.8rem;">✕ Quitar</button>
-          <span class="sound-status" id="soundStatus"></span>
+        </div>
+        <div class="sound-row" style="margin-top: 0.8rem;">
+          <span class="sound-label" style="min-width: 60px;">Volumen:</span>
+          <input type="range" id="alertVolume" min="0" max="1" step="0.05" value="0.5" style="flex: 1; accent-color: #9146ff;" />
+          <span class="sound-status" id="volumeStatus">50%</span>
         </div>
       </div>
     </div>
     <div class="customize-panel">
       <h3 style="margin-bottom:1rem;">🎨 Personalización</h3>
       <div class="customize-row">
-        <div class="config-field" style="grid-column: 1 / -1;">
-          <label class="toggle">
-            <input type="checkbox" id="defaultBgToggle" />
-            <span class="toggle-switch"></span>
-            <span>Activar fondo predeterminado</span>
-          </label>
-        </div>
         <div class="config-field"><label>Título</label><input type="text" id="customTitle" placeholder="Mi Dashboard" /></div>
         <div class="config-field"><label>Tamaño título (px)</label><input type="number" id="customTitleSize" value="24" min="12" max="80" /></div>
         <div class="config-field"><label>Tamaño logo (px)</label><input type="number" id="customLogoSize" value="32" min="16" max="200" /></div>
         <div class="config-field"><label>Color del texto</label><input type="color" id="customTextColor" value="#efeff1" /></div>
-        <div class="config-field"><label>Color de fondo</label><input type="color" id="customBgColor" value="#0e0e10" /></div>
+        <div class="config-field"><label>Color de fondo (si no usas imagen)</label><input type="color" id="customBgColor" value="#0e0e10" /></div>
       </div>
       <div class="customize-row">
         <div class="config-field"><label>Logo (URL)</label><input type="text" id="customLogo" placeholder="https://..." /></div>
         <div class="config-field"><label>Logo (archivo PC)</label><input type="file" id="customLogoFile" accept="image/*" /></div>
-        <div class="config-field"><label>Fondo (URL)</label><input type="text" id="customBgImage" placeholder="https://..." /></div>
-        <div class="config-field"><label>Fondo (archivo PC)</label><input type="file" id="customBgImageFile" accept="image/*" /></div>
+      </div>
+      <!-- ✅ Interruptor de fondo predeterminado agrupado con las opciones de fondo -->
+      <div class="customize-row" style="background: #0e0e10; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+        <div class="config-field" style="grid-column: 1 / -1; margin-bottom: 0.5rem;">
+          <label class="toggle" style="justify-content: flex-start;">
+            <input type="checkbox" id="defaultBgToggle" />
+            <span class="toggle-switch"></span>
+            <span>Usar fondo predeterminado</span>
+          </label>
+        </div>
+        <div class="config-field"><label>Fondo personalizado (URL)</label><input type="text" id="customBgImage" placeholder="https://..." /></div>
+        <div class="config-field"><label>Fondo personalizado (archivo PC)</label><input type="file" id="customBgImageFile" accept="image/*" /></div>
       </div>
       <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem;">
         <button id="applyCustomBtn" class="success">✅ Aplicar cambios</button>
@@ -510,10 +467,12 @@ let customConfig = JSON.parse(localStorage.getItem('tw_custom') || '{}');
 let customAlertSound = localStorage.getItem('tw_alert_sound') || null;
 let alertAudio = null;
 let scrollPositionBeforeConfig = 0;
-let useDefaultBg = localStorage.getItem('tw_use_default_bg') === 'true'; // ✅ Nuevo estado
+let useDefaultBg = localStorage.getItem('tw_use_default_bg') === 'true';
+let alertVolume = parseFloat(localStorage.getItem('tw_alert_volume')) || 0.5; // ✅ Nuevo estado de volumen
 
 if (customAlertSound) {
   alertAudio = new Audio(customAlertSound);
+  alertAudio.volume = alertVolume;
   $('soundStatus').textContent = '✅ Sonido cargado';
 }
 
@@ -522,7 +481,10 @@ $('clientSecret').value = localStorage.getItem('tw_client_secret') || '';
 $('alertsEnabledToggle').checked = alertsEnabled;
 $('soundEnabledToggle').checked = soundEnabled;
 $('muteAllToggle').checked = globalMuted;
-$('defaultBgToggle').checked = useDefaultBg; // ✅ Inicializar toggle
+$('defaultBgToggle').checked = useDefaultBg;
+$('alertVolume').value = alertVolume;
+$('volumeStatus').textContent = Math.round(alertVolume * 100) + '%';
+
 if (customAlertSound && !customAlertSound.startsWith('data:')) $('alertSoundUrl').value = customAlertSound;
 updateMuteLabel();
 
@@ -585,11 +547,18 @@ $('togglePanelBtn').addEventListener('click', () => {
 
 $('hideConfigBottomBtn').addEventListener('click', hideConfigPanel);
 
-// ✅ Evento para el toggle de fondo predeterminado
 $('defaultBgToggle').addEventListener('change', e => {
   useDefaultBg = e.target.checked;
   localStorage.setItem('tw_use_default_bg', useDefaultBg);
   applyCustomization();
+});
+
+// ✅ Control de volumen del sonido de alerta
+$('alertVolume').addEventListener('input', e => {
+  alertVolume = parseFloat(e.target.value);
+  localStorage.setItem('tw_alert_volume', alertVolume);
+  $('volumeStatus').textContent = Math.round(alertVolume * 100) + '%';
+  if (alertAudio) alertAudio.volume = alertVolume;
 });
 
 function openHelpModal() { $('helpModal').classList.add('active'); }
@@ -622,6 +591,7 @@ $('alertSoundUrl').addEventListener('change', e => {
   if (url) {
     customAlertSound = url;
     alertAudio = new Audio(url);
+    alertAudio.volume = alertVolume;
     alertAudio.load();
     localStorage.setItem('tw_alert_sound', url);
     $('soundStatus').textContent = '✅ Sonido cargado';
@@ -637,6 +607,7 @@ $('alertSoundFile').addEventListener('change', e => {
   reader.onload = ev => {
     customAlertSound = ev.target.result;
     alertAudio = new Audio(customAlertSound);
+    alertAudio.volume = alertVolume;
     localStorage.setItem('tw_alert_sound', customAlertSound);
     $('soundStatus').textContent = '✅ Sonido cargado';
     $('alertSoundUrl').value = '';
@@ -784,6 +755,12 @@ function resetCustomConfig() {
   $('defaultBgToggle').checked = false;
   useDefaultBg = false;
   localStorage.setItem('tw_use_default_bg', 'false');
+  
+  alertVolume = 0.5;
+  localStorage.setItem('tw_alert_volume', '0.5');
+  $('alertVolume').value = 0.5;
+  $('volumeStatus').textContent = '50%';
+  
   applyCustomization();
   showToast('🔄 Personalización reseteada');
 }
@@ -802,7 +779,6 @@ function applyCustomization() {
   if (customConfig.textColor) document.body.style.color = customConfig.textColor;
   else document.body.style.color = '#efeff1';
   
-  // ✅ Lógica de fondo actualizada
   if (useDefaultBg) {
     document.body.style.background = `url('https://i.ibb.co/cStFhx29/Fondo-multistream.jpg') center/cover fixed`;
   } else if (customConfig.bgImage) {
@@ -1015,6 +991,7 @@ function playAlertSound() {
   if (alertAudio) {
     try {
       alertAudio.currentTime = 0;
+      alertAudio.volume = alertVolume; // ✅ Asegurar volumen actual
       alertAudio.play().catch(() => {});
     } catch (e) { playDefaultSound(); }
   } else {
