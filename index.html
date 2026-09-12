@@ -182,7 +182,6 @@ button.success:hover:not(:disabled) { background: #15703d; }
 .sound-label { font-size: 0.8rem; color: #adadb8; }
 .sound-status { font-size: 0.75rem; color: #4ade80; }
 
-/* ✅ Botón inferior para ocultar configuración */
 .hide-config-bottom {
   display: flex;
   justify-content: center;
@@ -202,7 +201,6 @@ button.success:hover:not(:disabled) { background: #15703d; }
   box-shadow: 0 6px 16px rgba(145, 70, 255, 0.4);
 }
 
-/* ✅ Pie de página con redes sociales */
 .config-footer {
   margin-top: 1.5rem;
   padding-top: 1rem;
@@ -377,6 +375,13 @@ button.success:hover:not(:disabled) { background: #15703d; }
     <div class="customize-panel">
       <h3 style="margin-bottom:1rem;">🎨 Personalización</h3>
       <div class="customize-row">
+        <div class="config-field" style="grid-column: 1 / -1;">
+          <label class="toggle">
+            <input type="checkbox" id="defaultBgToggle" />
+            <span class="toggle-switch"></span>
+            <span>Activar fondo predeterminado</span>
+          </label>
+        </div>
         <div class="config-field"><label>Título</label><input type="text" id="customTitle" placeholder="Mi Dashboard" /></div>
         <div class="config-field"><label>Tamaño título (px)</label><input type="number" id="customTitleSize" value="24" min="12" max="80" /></div>
         <div class="config-field"><label>Tamaño logo (px)</label><input type="number" id="customLogoSize" value="32" min="16" max="200" /></div>
@@ -407,7 +412,6 @@ button.success:hover:not(:disabled) { background: #15703d; }
       <button id="hideConfigBottomBtn">✕ Ocultar configuración</button>
     </div>
 
-    <!-- ✅ Pie de página con redes y soporte (CORREGIDO) -->
     <div class="config-footer">
       <p class="footer-text">by <a href="https://www.quieroundibujo.com" target="_blank" class="footer-link">Kyerou</a></p>
       <div class="footer-socials">
@@ -506,6 +510,7 @@ let customConfig = JSON.parse(localStorage.getItem('tw_custom') || '{}');
 let customAlertSound = localStorage.getItem('tw_alert_sound') || null;
 let alertAudio = null;
 let scrollPositionBeforeConfig = 0;
+let useDefaultBg = localStorage.getItem('tw_use_default_bg') === 'true'; // ✅ Nuevo estado
 
 if (customAlertSound) {
   alertAudio = new Audio(customAlertSound);
@@ -517,6 +522,7 @@ $('clientSecret').value = localStorage.getItem('tw_client_secret') || '';
 $('alertsEnabledToggle').checked = alertsEnabled;
 $('soundEnabledToggle').checked = soundEnabled;
 $('muteAllToggle').checked = globalMuted;
+$('defaultBgToggle').checked = useDefaultBg; // ✅ Inicializar toggle
 if (customAlertSound && !customAlertSound.startsWith('data:')) $('alertSoundUrl').value = customAlertSound;
 updateMuteLabel();
 
@@ -578,6 +584,13 @@ $('togglePanelBtn').addEventListener('click', () => {
 });
 
 $('hideConfigBottomBtn').addEventListener('click', hideConfigPanel);
+
+// ✅ Evento para el toggle de fondo predeterminado
+$('defaultBgToggle').addEventListener('change', e => {
+  useDefaultBg = e.target.checked;
+  localStorage.setItem('tw_use_default_bg', useDefaultBg);
+  applyCustomization();
+});
 
 function openHelpModal() { $('helpModal').classList.add('active'); }
 
@@ -768,6 +781,9 @@ function resetCustomConfig() {
   $('customBgImage').value = '';
   $('customLogoFile').value = '';
   $('customBgImageFile').value = '';
+  $('defaultBgToggle').checked = false;
+  useDefaultBg = false;
+  localStorage.setItem('tw_use_default_bg', 'false');
   applyCustomization();
   showToast('🔄 Personalización reseteada');
 }
@@ -785,9 +801,18 @@ function applyCustomization() {
   else titleEl.innerHTML = html;
   if (customConfig.textColor) document.body.style.color = customConfig.textColor;
   else document.body.style.color = '#efeff1';
-  if (customConfig.bgImage) document.body.style.background = `url(${customConfig.bgImage}) center/cover fixed`;
-  else if (customConfig.bgColor) document.body.style.background = customConfig.bgColor;
-  else document.body.style.background = 'linear-gradient(135deg, #0e0e10 0%, #1f1f23 100%)';
+  
+  // ✅ Lógica de fondo actualizada
+  if (useDefaultBg) {
+    document.body.style.background = `url('https://i.ibb.co/cStFhx29/Fondo-multistream.jpg') center/cover fixed`;
+  } else if (customConfig.bgImage) {
+    document.body.style.background = `url(${customConfig.bgImage}) center/cover fixed`;
+  } else if (customConfig.bgColor) {
+    document.body.style.background = customConfig.bgColor;
+  } else {
+    document.body.style.background = 'linear-gradient(135deg, #0e0e10 0%, #1f1f23 100%)';
+  }
+  
   if (customConfig.logo) {
     $('previewBox').style.display = 'flex';
     $('previewLogo').src = customConfig.logo;
