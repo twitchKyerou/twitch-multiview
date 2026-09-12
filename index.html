@@ -241,6 +241,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
     </div>
   </div>
 </div>
+
 <div class="header" id="header">
   <div class="container">
     <div class="channels-panel">
@@ -254,6 +255,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
       </div>
       <div class="quick-add-hint">💡 Separa por comas, espacios o saltos de línea. Se ignoran duplicados.</div>
     </div>
+
     <div class="privacy-banner" id="privacyBanner">
       <div class="icon">🔒</div>
       <div class="content">
@@ -261,6 +263,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
       </div>
       <button class="hide-btn" id="hidePrivacyBtn">Ocultar aviso</button>
     </div>
+
     <div class="config">
       <div style="display:flex; gap:0.5rem; margin-bottom:0.8rem; align-items:center; flex-wrap:wrap;">
         <button id="toggleCredentialsBtn" class="secondary" style="padding:0.4rem 0.8rem; font-size:0.8rem;">🙈 Ocultar credenciales</button>
@@ -286,6 +289,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
         </div>
       </div>
     </div>
+
     <div class="keywords-panel">
       <div class="keywords-header">
         <h3>🔔 Alertas por palabras clave</h3>
@@ -326,6 +330,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
         </div>
       </div>
     </div>
+
     <div class="customize-panel">
       <h3 style="margin-bottom:1rem;">🎨 Personalización</h3>
       <div class="customize-row">
@@ -339,7 +344,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
         <div class="config-field"><label>Logo (URL)</label><input type="text" id="customLogo" placeholder="https://..." /></div>
         <div class="config-field"><label>Logo (archivo PC)</label><input type="file" id="customLogoFile" accept="image/*" /></div>
       </div>
-      <!-- ✅ Interruptor de fondo predeterminado agrupado con las opciones de fondo -->
+      
       <div class="customize-row" style="background: #0e0e10; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
         <div class="config-field" style="grid-column: 1 / -1; margin-bottom: 0.5rem;">
           <label class="toggle" style="justify-content: flex-start;">
@@ -351,6 +356,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
         <div class="config-field"><label>Fondo personalizado (URL)</label><input type="text" id="customBgImage" placeholder="https://..." /></div>
         <div class="config-field"><label>Fondo personalizado (archivo PC)</label><input type="file" id="customBgImageFile" accept="image/*" /></div>
       </div>
+
       <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem;">
         <button id="applyCustomBtn" class="success">✅ Aplicar cambios</button>
         <button id="resetCustomBtn" class="secondary">🔄 Resetear</button>
@@ -385,6 +391,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
     </div>
   </div>
 </div>
+
 <div class="grid-container">
   <div class="container">
     <div id="grid" class="grid">
@@ -392,6 +399,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
     </div>
   </div>
 </div>
+
 <div id="helpModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -412,6 +420,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
     </div>
   </div>
 </div>
+
 <div id="manageModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -441,39 +450,64 @@ button.success:hover:not(:disabled) { background: #15703d; }
     </div>
   </div>
 </div>
+
 <script src="https://player.twitch.tv/js/embed/v1.js"></script>
 <script>
 const $ = id => document.getElementById(id);
+
 let accessToken = null;
-let channels = JSON.parse(localStorage.getItem('tw_channels') || '[]');
-let disabledChannels = JSON.parse(localStorage.getItem('tw_disabled') || '[]');
+let channels = [];
+let disabledChannels = [];
 let channelData = {};
 let chatSockets = {};
 let pollTimer = null;
-let currentFilter = localStorage.getItem('tw_filter') || 'all';
-let currentSort = localStorage.getItem('tw_sort') || 'viewers-desc';
-let currentView = localStorage.getItem('tw_view') || 'avatar';
-let currentLayout = localStorage.getItem('tw_layout') || 'auto';
-let highlightWords = JSON.parse(localStorage.getItem('tw_keywords') || '[]');
-let alertsEnabled = localStorage.getItem('tw_alerts_enabled') !== 'false';
-let soundEnabled = localStorage.getItem('tw_sound_enabled') !== 'false';
-let globalMuted = localStorage.getItem('tw_global_muted') === 'true';
+let currentFilter = 'all';
+let currentSort = 'viewers-desc';
+let currentView = 'avatar';
+let currentLayout = 'auto';
+let highlightWords = [];
+let alertsEnabled = true;
+let soundEnabled = true;
+let globalMuted = false;
 let alertCooldowns = {};
 let audioCtx = null;
 let twitchPlayers = {};
 let channelMuted = {};
 let playerCards = {};
-let customConfig = JSON.parse(localStorage.getItem('tw_custom') || '{}');
-let customAlertSound = localStorage.getItem('tw_alert_sound') || null;
+let customConfig = {};
+let customAlertSound = null;
 let alertAudio = null;
 let scrollPositionBeforeConfig = 0;
-let useDefaultBg = localStorage.getItem('tw_use_default_bg') === 'true';
-let alertVolume = parseFloat(localStorage.getItem('tw_alert_volume')) || 0.5; // ✅ Nuevo estado de volumen
+let useDefaultBg = false;
+let alertVolume = 0.5;
+
+try {
+  channels = JSON.parse(localStorage.getItem('tw_channels') || '[]');
+  disabledChannels = JSON.parse(localStorage.getItem('tw_disabled') || '[]');
+  currentFilter = localStorage.getItem('tw_filter') || 'all';
+  currentSort = localStorage.getItem('tw_sort') || 'viewers-desc';
+  currentView = localStorage.getItem('tw_view') || 'avatar';
+  currentLayout = localStorage.getItem('tw_layout') || 'auto';
+  highlightWords = JSON.parse(localStorage.getItem('tw_keywords') || '[]');
+  alertsEnabled = localStorage.getItem('tw_alerts_enabled') !== 'false';
+  soundEnabled = localStorage.getItem('tw_sound_enabled') !== 'false';
+  globalMuted = localStorage.getItem('tw_global_muted') === 'true';
+  customConfig = JSON.parse(localStorage.getItem('tw_custom') || '{}');
+  customAlertSound = localStorage.getItem('tw_alert_sound') || null;
+  useDefaultBg = localStorage.getItem('tw_use_default_bg') === 'true';
+  
+  const savedVol = localStorage.getItem('tw_alert_volume');
+  alertVolume = savedVol !== null ? parseFloat(savedVol) : 0.5;
+} catch (e) {
+  console.error("Error cargando configuración:", e);
+}
 
 if (customAlertSound) {
-  alertAudio = new Audio(customAlertSound);
-  alertAudio.volume = alertVolume;
-  $('soundStatus').textContent = '✅ Sonido cargado';
+  try {
+    alertAudio = new Audio(customAlertSound);
+    alertAudio.volume = alertVolume;
+    $('soundStatus').textContent = '✅ Sonido cargado';
+  } catch(e) {}
 }
 
 $('clientId').value = localStorage.getItem('tw_client_id') || '';
@@ -553,7 +587,6 @@ $('defaultBgToggle').addEventListener('change', e => {
   applyCustomization();
 });
 
-// ✅ Control de volumen del sonido de alerta
 $('alertVolume').addEventListener('input', e => {
   alertVolume = parseFloat(e.target.value);
   localStorage.setItem('tw_alert_volume', alertVolume);
@@ -776,6 +809,7 @@ function applyCustomization() {
   html += esc(displayTitle);
   if (!customConfig.title) titleEl.innerHTML = `<a href="https://www.twitch.tv/kyerou" target="_blank">${html}</a>`;
   else titleEl.innerHTML = html;
+  
   if (customConfig.textColor) document.body.style.color = customConfig.textColor;
   else document.body.style.color = '#efeff1';
   
@@ -795,7 +829,9 @@ function applyCustomization() {
     $('previewLogo').style.height = Math.min(logoSize, 100) + 'px';
     $('previewTitle').textContent = displayTitle;
     $('previewTitle').style.fontSize = Math.min(titleSize, 32) + 'px';
-  } else $('previewBox').style.display = 'none';
+  } else {
+    $('previewBox').style.display = 'none';
+  }
 }
 
 function setView(view) {
@@ -843,7 +879,9 @@ function updateGridLayout() {
     let layoutClass = '';
     if (currentLayout !== 'auto') layoutClass = `layout-${currentLayout}`;
     grid.className = `multiview ${layoutClass}`;
-  } else grid.className = 'grid';
+  } else {
+    grid.className = 'grid';
+  }
 }
 
 function getActiveChannels() { return channels.filter(c => !disabledChannels.includes(c)); }
@@ -942,7 +980,9 @@ function importRawText(text, replace) {
     channels.forEach(ch => { if (!parsed.includes(ch)) { disconnectChat(ch); destroyPlayer(ch); } });
     channels = [...new Set(parsed)];
     disabledChannels = disabledChannels.filter(c => channels.includes(c));
-  } else channels = [...channels, ...parsed.filter(c => !channels.includes(c))];
+  } else {
+    channels = [...channels, ...parsed.filter(c => !channels.includes(c))];
+  }
   if (channels.length > 100) channels = channels.slice(0, 100);
   saveChannels(); renderGrid(); renderManageList(); updateChannelCount();
   showToast(`📥 ${parsed.length} procesados`);
@@ -991,7 +1031,7 @@ function playAlertSound() {
   if (alertAudio) {
     try {
       alertAudio.currentTime = 0;
-      alertAudio.volume = alertVolume; // ✅ Asegurar volumen actual
+      alertAudio.volume = alertVolume;
       alertAudio.play().catch(() => {});
     } catch (e) { playDefaultSound(); }
   } else {
@@ -1221,8 +1261,16 @@ function updatePlayerCardsUI() {
 }
 
 function updateCardUI(ch) {
-  if (currentView === 'avatar') { const card = document.querySelector(`.channel-card[data-channel="${ch}"]`); if (card) { const d = channelData[ch] || {}; card.classList.toggle('live', !!d.live); card.classList.toggle('mentioned', !!d.mentioned); } }
-  else updatePlayerCardsUI();
+  if (currentView === 'avatar') { 
+    const card = document.querySelector(`.channel-card[data-channel="${ch}"]`); 
+    if (card) { 
+      const d = channelData[ch] || {}; 
+      card.classList.toggle('live', !!d.live); 
+      card.classList.toggle('mentioned', !!d.mentioned); 
+    } 
+  } else {
+    updatePlayerCardsUI();
+  }
 }
 
 function applyFilters() {
@@ -1230,23 +1278,56 @@ function applyFilters() {
   let filtered = active;
   if (currentFilter === 'live') filtered = active.filter(c => channelData[c]?.live);
   else if (currentFilter === 'alert') filtered = active.filter(c => channelData[c]?.mentioned);
-  if (currentView === 'avatar') { const grid = $('grid'); grid.querySelectorAll('.channel-card').forEach(card => { card.style.display = filtered.includes(card.dataset.channel) ? '' : 'none'; }); }
-  else { Object.keys(playerCards).forEach(ch => { playerCards[ch].classList.toggle('hidden', !filtered.includes(ch)); }); }
+  if (currentView === 'avatar') { 
+    const grid = $('grid'); 
+    grid.querySelectorAll('.channel-card').forEach(card => { 
+      card.style.display = filtered.includes(card.dataset.channel) ? '' : 'none'; 
+    }); 
+  } else { 
+    Object.keys(playerCards).forEach(ch => { 
+      playerCards[ch].classList.toggle('hidden', !filtered.includes(ch)); 
+    }); 
+  }
 }
 
 function togglePlayerMute(ch) {
   const player = twitchPlayers[ch];
   if (!player) return;
-  try { const cm = player.getMuted(); player.setMuted(!cm); channelMuted[ch] = !cm; updatePlayerCardsUI(); } catch (e) { console.error(e); }
+  try { 
+    const cm = player.getMuted(); 
+    player.setMuted(!cm); 
+    channelMuted[ch] = !cm; 
+    updatePlayerCardsUI(); 
+  } catch (e) { console.error(e); }
 }
 
-function destroyPlayer(ch) { if (twitchPlayers[ch]) { try { const el = document.getElementById(`player-${ch}`); if (el) el.innerHTML = ''; } catch (e) {} delete twitchPlayers[ch]; } }
-function destroyAllPlayers() { Object.keys(twitchPlayers).forEach(ch => destroyPlayer(ch)); Object.keys(playerCards).forEach(ch => { if (playerCards[ch] && playerCards[ch].parentNode) playerCards[ch].remove(); delete playerCards[ch]; }); }
+function destroyPlayer(ch) { 
+  if (twitchPlayers[ch]) { 
+    try { 
+      const el = document.getElementById(`player-${ch}`); 
+      if (el) el.innerHTML = ''; 
+    } catch (e) {} 
+    delete twitchPlayers[ch]; 
+  } 
+}
+
+function destroyAllPlayers() { 
+  Object.keys(twitchPlayers).forEach(ch => destroyPlayer(ch)); 
+  Object.keys(playerCards).forEach(ch => { 
+    if (playerCards[ch] && playerCards[ch].parentNode) playerCards[ch].remove(); 
+    delete playerCards[ch]; 
+  }); 
+}
 
 async function refreshAll() {
   const active = getActiveChannels();
   if (!accessToken) { setApiStatus('No autenticado', 'error'); return; }
-  if (active.length === 0) { setApiStatus('Sin canales activos', ''); clearTimeout(pollTimer); pollTimer = setTimeout(refreshAll, 30000); return; }
+  if (active.length === 0) { 
+    setApiStatus('Sin canales activos', ''); 
+    clearTimeout(pollTimer); 
+    pollTimer = setTimeout(refreshAll, 30000); 
+    return; 
+  }
   setApiStatus('Actualizando...', '');
   try {
     const batches = [];
