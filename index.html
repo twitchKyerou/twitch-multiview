@@ -114,6 +114,68 @@
     border-bottom: none;
   }
   .container { max-width: 1800px; margin: 0 auto; width: 100%; }
+  
+  /* ✅ NUEVA SECCIÓN DE CANALES (siempre visible) */
+  .channels-panel {
+    background: #18181b;
+    border: 1px solid #2d2d33;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .channels-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .channels-panel-header h3 {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .channels-panel-header .counter {
+    background: #2d2d33;
+    color: #adadb8;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-weight: normal;
+  }
+  .quick-add-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .quick-add-input {
+    flex: 1;
+    min-width: 250px;
+    padding: 0.6rem 0.8rem;
+    background: #0e0e10;
+    border: 1px solid #3a3a44;
+    border-radius: 6px;
+    color: #efeff1;
+    font-size: 0.9rem;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    resize: none;
+  }
+  .quick-add-input:focus { outline: none; border-color: #9146ff; }
+  .quick-add-hint {
+    font-size: 0.75rem;
+    color: #6d6d78;
+    margin-top: -0.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .channels-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
   .config, .keywords-panel, .customize-panel {
     background: #18181b;
     border: 1px solid #2d2d33;
@@ -652,7 +714,6 @@
   .privacy-banner .hide-btn:hover { background: rgba(255, 153, 0, 0.2); }
   .privacy-banner.hidden { display: none; }
   
-  /* ✅ FIX: Clase base oculta + clase show la muestra */
   .credentials-hidden { display: none; }
   .credentials-hidden.show { display: block; }
   
@@ -794,24 +855,42 @@
 
 <div class="header" id="header">
   <div class="container">
+    
+    <!-- ✅ NUEVA SECCIÓN DE CANALES (siempre visible) -->
+    <div class="channels-panel">
+      <div class="channels-panel-header">
+        <h3>
+          📺 Canales
+          <span class="counter" id="channelCounter">0 canales</span>
+        </h3>
+        <button id="manageChannelsBtn" class="secondary">⚙ Gestionar canales</button>
+      </div>
+      
+      <div class="quick-add-row">
+        <textarea class="quick-add-input" id="quickAddInput" rows="2" placeholder="kyerou, dang3rclips, marionerja&#10;(separados por comas, espacios o saltos de línea)"></textarea>
+        <button id="quickAddBtn">➕ Añadir</button>
+      </div>
+      <div class="quick-add-hint">💡 Puedes pegar varios canales de golpe. Se ignoran los duplicados y los que ya tienes.</div>
+    </div>
+    
+    <!-- Banner de privacidad -->
+    <div class="privacy-banner" id="privacyBanner">
+      <div class="icon">🔒</div>
+      <div class="content">
+        <strong>Aviso de privacidad para streamers:</strong> La sección de credenciales muestra tu Client Secret en pantalla. 
+        Si vas a hacer stream, <strong>ocúltala con el botón de abajo</strong>. 
+        Nunca muestres tu <strong>Client Secret</strong> en directo.
+      </div>
+      <button class="hide-btn" id="hidePrivacyBtn">Ocultar aviso</button>
+    </div>
+    
+    <!-- Sección de credenciales (ocultable) -->
     <div class="config">
-      <div class="privacy-banner" id="privacyBanner">
-        <div class="icon">🔒</div>
-        <div class="content">
-          <strong>Aviso de privacidad para streamers:</strong> Esta página muestra tus credenciales de Twitch en pantalla. 
-          Si vas a hacer stream, <strong>oculta esta sección antes de empezar</strong> usando el botón de abajo, 
-          o pulsa el botón ⚙ de la barra superior para colapsar todo el panel. 
-          Nunca muestres tu <strong>Client Secret</strong> en directo — cualquiera que lo vea podría acceder a tu app de Twitch.
-        </div>
-        <button class="hide-btn" id="hidePrivacyBtn">Ocultar aviso</button>
-      </div>
-      
-      <div style="display:flex; gap:0.5rem; margin-bottom:0.8rem; align-items:center;">
+      <div style="display:flex; gap:0.5rem; margin-bottom:0.8rem; align-items:center; flex-wrap:wrap;">
         <button id="toggleCredentialsBtn" class="secondary" style="padding:0.4rem 0.8rem; font-size:0.8rem;">🙈 Ocultar credenciales</button>
-        <span style="font-size:0.8rem; color:#adadb8;">Úsalo antes de hacer stream</span>
+        <span style="font-size:0.8rem; color:#adadb8;">Solo necesitas configurarlas una vez</span>
       </div>
       
-      <!-- ✅ FIX: Añadida la clase credentials-hidden -->
       <div id="credentialsSection" class="credentials-hidden show">
         <div class="config-row">
           <div class="config-field" style="flex:2">
@@ -828,14 +907,8 @@
             </label>
             <input type="password" id="clientSecret" placeholder="tu_client_secret_aqui" style="min-width:200px" />
           </div>
-          <div class="config-field" style="flex:1">
-            <label>Canal</label>
-            <input type="text" id="newChannel" placeholder="ej: kyerou" />
-          </div>
-          <button id="addChannelBtn" disabled>➕ Añadir</button>
           <button id="authBtn">🔑 Auth</button>
           <button id="refreshBtn" class="secondary" disabled>🔄 Refrescar</button>
-          <button id="manageBtn" class="secondary">⚙ Gestionar</button>
         </div>
         <div class="status-bar">
           <div class="status-item">
@@ -849,9 +922,6 @@
           <div class="status-item">
             <span class="status-dot" id="chatDot"></span>
             <span id="chatStatus">Chat inactivo</span>
-          </div>
-          <div class="status-item">
-            <span id="channelCount" class="counter-badge">0 canales</span>
           </div>
         </div>
       </div>
@@ -1136,7 +1206,6 @@ if (localStorage.getItem('tw_privacy_hidden') === 'true') {
   $('privacyBanner').classList.add('hidden');
 }
 
-// ✅ FIX: Inicialización correcta del estado de credenciales
 if (localStorage.getItem('tw_credentials_hidden') === 'true') {
   $('credentialsSection').classList.remove('show');
   $('toggleCredentialsBtn').textContent = '👁 Mostrar credenciales';
@@ -1154,6 +1223,7 @@ if (customConfig.bgImage && customConfig.bgImage.startsWith('data:')) $('customB
 
 applyCustomization();
 
+// ✅ EVENTOS DE AYUDA Y PRIVACIDAD
 $('helpClientIdBtn').addEventListener('click', () => openHelpModal('credentials'));
 $('helpClientSecretBtn').addEventListener('click', () => openHelpModal('credentials'));
 $('closeHelpBtn').addEventListener('click', () => $('helpModal').classList.remove('active'));
@@ -1171,20 +1241,12 @@ document.querySelectorAll('.help-tab').forEach(tab => {
   });
 });
 
-// ✅ FIX: Lógica simplificada y correcta
 $('toggleCredentialsBtn').addEventListener('click', () => {
   const section = $('credentialsSection');
   const btn = $('toggleCredentialsBtn');
-  
-  // Toggle de la clase 'show'
   section.classList.toggle('show');
-  
   const isNowHidden = !section.classList.contains('show');
-  
-  // Actualizar texto del botón
   btn.textContent = isNowHidden ? '👁 Mostrar credenciales' : '🙈 Ocultar credenciales';
-  
-  // Guardar preferencia
   localStorage.setItem('tw_credentials_hidden', isNowHidden);
 });
 
@@ -1194,14 +1256,12 @@ function openHelpModal(tab) {
   } else {
     $('helpModalTitle').textContent = '🌐 Ayuda: Dónde alojar la app';
   }
-  
   document.querySelectorAll('.help-tab').forEach(t => {
     t.classList.toggle('active', t.dataset.tab === tab);
   });
   document.querySelectorAll('.help-tab-content').forEach(c => {
     c.classList.toggle('active', c.id === 'tab-' + tab);
   });
-  
   $('helpModal').classList.add('active');
 }
 
@@ -1212,10 +1272,10 @@ $('togglePanelBtn').addEventListener('click', () => {
 });
 
 $('authBtn').addEventListener('click', authenticate);
-$('addChannelBtn').addEventListener('click', addChannel);
+// ✅ Ya no hay addChannelBtn individual, ahora es quickAddBtn
 $('refreshBtn').addEventListener('click', () => { clearTimeout(pollTimer); refreshAll(); });
 $('closeManageBtn').addEventListener('click', () => $('manageModal').classList.remove('active'));
-$('manageBtn').addEventListener('click', openManage);
+$('manageChannelsBtn').addEventListener('click', openManage); // ✅ Renombrado
 $('selectAllBtn').addEventListener('click', () => toggleAll(true));
 $('deselectAllBtn').addEventListener('click', () => toggleAll(false));
 $('exportBtn').addEventListener('click', exportClipboard);
@@ -1230,6 +1290,16 @@ $('applyCustomBtn').addEventListener('click', applyCustomConfig);
 $('resetCustomBtn').addEventListener('click', resetCustomConfig);
 $('removeLogoBtn').addEventListener('click', removeLogo);
 
+// ✅ NUEVO: Quick add
+$('quickAddBtn').addEventListener('click', quickAddChannels);
+$('quickAddInput').addEventListener('keydown', e => {
+  // Ctrl/Cmd + Enter para añadir rápido
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    quickAddChannels();
+  }
+});
+
 $('muteAllToggle').addEventListener('change', e => {
   globalMuted = e.target.checked;
   localStorage.setItem('tw_global_muted', globalMuted);
@@ -1237,7 +1307,6 @@ $('muteAllToggle').addEventListener('change', e => {
   applyMuteToAll();
 });
 
-$('newChannel').addEventListener('keypress', e => { if (e.key === 'Enter') addChannel(); });
 $('newKeyword').addEventListener('keypress', e => { if (e.key === 'Enter') addKeyword(); });
 
 $('filterAllBtn').addEventListener('click', () => setFilter('all'));
@@ -1291,6 +1360,56 @@ function removeLogo() {
   $('customLogoFile').value = '';
   applyCustomization();
   showToast('❌ Logo eliminado');
+}
+
+// ✅ NUEVA FUNCIÓN: Añadir canales rápidamente (múltiples de golpe)
+function quickAddChannels() {
+  const text = $('quickAddInput').value;
+  if (!text.trim()) {
+    showToast('⚠️ Escribe al menos un canal');
+    return;
+  }
+  
+  // Parsear: acepta comas, espacios, saltos de línea, @, URLs completas
+  const parsed = text
+    .split(/[\n,;\s]+/)
+    .map(c => c.trim().toLowerCase()
+      .replace(/^@/, '')
+      .replace(/^https?:\/\/(www\.)?twitch\.tv\//, '')
+    )
+    .filter(c => c && /^[a-z0-9_]{4,25}$/.test(c));
+  
+  if (parsed.length === 0) {
+    showToast('⚠️ No se encontraron canales válidos');
+    return;
+  }
+  
+  // Filtrar duplicados y existentes
+  const newOnes = parsed.filter(c => !channels.includes(c));
+  
+  if (newOnes.length === 0) {
+    showToast('ℹ️ Todos esos canales ya los tienes añadidos');
+    return;
+  }
+  
+  if (channels.length + newOnes.length > 100) {
+    const allowed = 100 - channels.length;
+    if (allowed <= 0) {
+      showToast('⚠️ Ya tienes el máximo de 100 canales');
+      return;
+    }
+    channels.push(...newOnes.slice(0, allowed));
+    showToast(`⚠️ Límite de 100. Añadidos ${allowed} de ${newOnes.length}`);
+  } else {
+    channels.push(...newOnes);
+    showToast(`✅ ${newOnes.length} canal(es) añadido(s)`);
+  }
+  
+  saveChannels();
+  $('quickAddInput').value = '';
+  renderGrid();
+  updateChannelCount();
+  if (accessToken) refreshAll();
 }
 
 $('sortBySelect').value = currentSort;
@@ -1487,7 +1606,9 @@ function toggleAll(enable) {
 function updateChannelCount() {
   const active = getActiveChannels().length;
   const total = channels.length;
-  $('channelCount').textContent = active === total ? `${total} canales` : `${active}/${total} activos`;
+  const text = active === total ? `${total} canales` : `${active}/${total} activos`;
+  $('channelCount').textContent = text;
+  $('channelCounter').textContent = text;
 }
 
 function openManage() {
@@ -1743,7 +1864,6 @@ async function authenticate() {
     }
     accessToken = (await r.json()).access_token;
     setTokenStatus('✓ Autenticado', 'ok');
-    $('addChannelBtn').disabled = false;
     $('refreshBtn').disabled = false;
     if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
     showToast('✅ Autenticado. Considera ocultar las credenciales antes de hacer stream.');
@@ -1751,19 +1871,6 @@ async function authenticate() {
     setTokenStatus('✗ Error', 'error');
     alert('Error: ' + e.message);
   }
-}
-
-function addChannel() {
-  const ch = $('newChannel').value.trim().toLowerCase();
-  if (!ch) return;
-  if (channels.includes(ch)) { alert('Ya existe'); return; }
-  if (channels.length >= 100) { alert('Máximo 100'); return; }
-  channels.push(ch);
-  saveChannels();
-  $('newChannel').value = '';
-  renderGrid();
-  updateChannelCount();
-  if (accessToken) refreshAll();
 }
 
 function removeChannel(ch) {
@@ -1783,7 +1890,7 @@ function renderGrid() {
   if (active.length === 0) {
     destroyAllPlayers();
     updateGridLayout();
-    grid.innerHTML = `<div class="empty-state"><p>${channels.length === 0 ? 'Añade canales para empezar' : 'Todos los canales están desactivados. Ve a ⚙ Gestionar.'}</p></div>`;
+    grid.innerHTML = `<div class="empty-state"><p>${channels.length === 0 ? 'Añade canales para empezar' : 'Todos los canales están desactivados. Ve a ⚙ Gestionar canales.'}</p></div>`;
     return;
   }
   updateGridLayout();
