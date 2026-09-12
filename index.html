@@ -114,8 +114,6 @@
     border-bottom: none;
   }
   .container { max-width: 1800px; margin: 0 auto; width: 100%; }
-  
-  /* ✅ NUEVA SECCIÓN DE CANALES (siempre visible) */
   .channels-panel {
     background: #18181b;
     border: 1px solid #2d2d33;
@@ -170,12 +168,6 @@
     margin-top: -0.5rem;
     margin-bottom: 0.8rem;
   }
-  .channels-actions {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  
   .config, .keywords-panel, .customize-panel {
     background: #18181b;
     border: 1px solid #2d2d33;
@@ -185,13 +177,7 @@
   }
   .config-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: end; }
   .config-field { display: flex; flex-direction: column; gap: 0.3rem; }
-  .config-field label { 
-    font-size: 0.8rem; 
-    color: #adadb8; 
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
+  .config-field label { font-size: 0.8rem; color: #adadb8; display: flex; align-items: center; gap: 0.4rem; }
   .config-field input, .config-field select {
     padding: 0.5rem 0.7rem;
     background: #0e0e10;
@@ -202,33 +188,16 @@
   }
   .config-field input[type="color"] { width: 60px; height: 36px; padding: 2px; cursor: pointer; }
   .config-field input[type="number"] { width: 90px; }
-  .config-field input[type="file"] {
-    padding: 0.4rem;
-    font-size: 0.8rem;
-    color: #adadb8;
-    cursor: pointer;
-  }
+  .config-field input[type="file"] { padding: 0.4rem; font-size: 0.8rem; color: #adadb8; cursor: pointer; }
   .config-field input[type="file"]::file-selector-button {
-    background: #2d2d33;
-    color: #efeff1;
-    border: 1px solid #3a3a44;
-    border-radius: 4px;
-    padding: 0.2rem 0.5rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
+    background: #2d2d33; color: #efeff1; border: 1px solid #3a3a44;
+    border-radius: 4px; padding: 0.2rem 0.5rem; margin-right: 0.5rem; cursor: pointer;
   }
   .config-field input:focus, .config-field select:focus { outline: none; border-color: #9146ff; }
   button {
-    background: #9146ff;
-    color: white;
-    border: none;
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-size: 0.9rem;
-    white-space: nowrap;
+    background: #9146ff; color: white; border: none;
+    padding: 0.6rem 1rem; border-radius: 6px; font-weight: 600;
+    cursor: pointer; transition: background 0.2s; font-size: 0.9rem; white-space: nowrap;
   }
   button:hover:not(:disabled) { background: #772ce8; }
   button:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -248,62 +217,35 @@
   .keywords-controls { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
   .keywords-input-row { display: flex; gap: 0.5rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
   .keywords-input-row input {
-    flex: 1; min-width: 200px;
-    padding: 0.5rem 0.7rem;
-    background: #0e0e10;
-    border: 1px solid #3a3a44;
-    border-radius: 6px;
-    color: #efeff1;
-    font-size: 0.9rem;
+    flex: 1; min-width: 200px; padding: 0.5rem 0.7rem;
+    background: #0e0e10; border: 1px solid #3a3a44; border-radius: 6px;
+    color: #efeff1; font-size: 0.9rem;
   }
   .keywords-input-row input:focus { outline: none; border-color: #ffd700; }
   .keywords-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .keyword-tag {
     background: linear-gradient(135deg, #ffd700, #ffaa00);
-    color: #1a1a1a;
-    padding: 0.3rem 0.7rem;
-    border-radius: 14px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+    color: #1a1a1a; padding: 0.3rem 0.7rem; border-radius: 14px;
+    font-size: 0.85rem; font-weight: 600;
+    display: flex; align-items: center; gap: 0.4rem;
   }
   .keyword-tag button {
-    background: rgba(0,0,0,0.2);
-    color: #1a1a1a;
-    padding: 0;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    cursor: pointer;
+    background: rgba(0,0,0,0.2); color: #1a1a1a;
+    padding: 0; width: 18px; height: 18px; border-radius: 50%;
+    font-size: 0.8rem; display: flex; align-items: center; justify-content: center;
+    border: none; cursor: pointer;
   }
   .keyword-tag button:hover { background: rgba(0,0,0,0.4); }
   .toggle { display: flex; align-items: center; gap: 0.3rem; cursor: pointer; font-size: 0.85rem; color: #adadb8; user-select: none; }
   .toggle input { display: none; }
   .toggle-switch {
-    width: 32px;
-    height: 18px;
-    background: #2d2d33;
-    border-radius: 10px;
-    position: relative;
-    transition: background 0.2s;
+    width: 32px; height: 18px; background: #2d2d33;
+    border-radius: 10px; position: relative; transition: background 0.2s;
   }
   .toggle-switch::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 14px;
-    height: 14px;
-    background: #6d6d78;
-    border-radius: 50%;
-    transition: all 0.2s;
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 14px; height: 14px; background: #6d6d78;
+    border-radius: 50%; transition: all 0.2s;
   }
   .toggle input:checked + .toggle-switch { background: #9146ff; }
   .toggle input:checked + .toggle-switch::after { left: 16px; background: white; }
@@ -314,77 +256,46 @@
     gap: 1rem;
   }
   .channel-card {
-    background: #18181b;
-    border: 2px solid #2d2d33;
-    border-radius: 12px;
-    padding: 1rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
+    background: #18181b; border: 2px solid #2d2d33;
+    border-radius: 12px; padding: 1rem; cursor: pointer;
+    transition: all 0.2s; position: relative; overflow: hidden;
   }
   .channel-card:hover {
-    border-color: #9146ff;
-    transform: translateY(-2px);
+    border-color: #9146ff; transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(145, 70, 255, 0.3);
   }
   .channel-card.live { border-color: #eb0400; }
   .channel-card.live::before {
-    content: "● LIVE";
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: #eb0400;
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.2rem 0.5rem;
-    border-radius: 10px;
-    animation: pulse 1.5s infinite;
-    z-index: 2;
+    content: "● LIVE"; position: absolute; top: 8px; right: 8px;
+    background: #eb0400; color: white; font-size: 0.7rem; font-weight: 700;
+    padding: 0.2rem 0.5rem; border-radius: 10px;
+    animation: pulse 1.5s infinite; z-index: 2;
   }
   @keyframes pulse { 50% { opacity: 0.6; } }
   .channel-card.mentioned {
     border-color: #ffd700 !important;
     box-shadow: 0 0 0 3px #ffd700, 0 0 30px rgba(255, 215, 0, 0.6);
-    animation: alertPulse 1s infinite;
-    z-index: 10;
+    animation: alertPulse 1s infinite; z-index: 10;
   }
   .channel-card.mentioned::after {
-    content: "⚠ MENCIÓN";
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    background: #ffd700;
-    color: #1a1a1a;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.2rem 0.5rem;
-    border-radius: 10px;
-    z-index: 2;
+    content: "⚠ MENCIÓN"; position: absolute; top: 8px; left: 8px;
+    background: #ffd700; color: #1a1a1a; font-size: 0.7rem; font-weight: 700;
+    padding: 0.2rem 0.5rem; border-radius: 10px; z-index: 2;
   }
   @keyframes alertPulse {
     0%, 100% { box-shadow: 0 0 0 3px #ffd700, 0 0 30px rgba(255, 215, 0, 0.6); }
     50% { box-shadow: 0 0 0 5px #ffaa00, 0 0 50px rgba(255, 215, 0, 0.9); }
   }
   .avatar {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 0.8rem;
-    border: 3px solid #2d2d33;
-    background: #0e0e10;
+    width: 100%; aspect-ratio: 1; border-radius: 50%;
+    object-fit: cover; margin-bottom: 0.8rem;
+    border: 3px solid #2d2d33; background: #0e0e10;
   }
   .channel-card.live .avatar { border-color: #eb0400; }
   .channel-card.mentioned .avatar { border-color: #ffd700 !important; }
   .channel-name {
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .channel-stats { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; }
   .stat { display: flex; justify-content: space-between; align-items: center; }
@@ -404,12 +315,9 @@
   .multiview.layout-9 { grid-template-columns: repeat(3, 1fr); }
   .multiview.layout-16 { grid-template-columns: repeat(4, 1fr); }
   .player-card {
-    position: relative;
-    background: #000;
-    border: 2px solid #2d2d33;
-    border-radius: 8px;
-    overflow: hidden;
-    aspect-ratio: 16/9;
+    position: relative; background: #000;
+    border: 2px solid #2d2d33; border-radius: 8px;
+    overflow: hidden; aspect-ratio: 16/9;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
   .player-card.live { border-color: #eb0400; }
@@ -418,18 +326,9 @@
     box-shadow: 0 0 0 3px rgba(0, 210, 106, 0.4), 0 0 20px rgba(0, 210, 106, 0.3);
   }
   .player-card.has-audio::before {
-    content: "🔊 AUDIO";
-    position: absolute;
-    top: 8px;
-    right: 50px;
-    background: #00d26a;
-    color: #0e0e10;
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 0.15rem 0.4rem;
-    border-radius: 8px;
-    z-index: 6;
-    pointer-events: none;
+    content: "🔊 AUDIO"; position: absolute; top: 8px; right: 50px;
+    background: #00d26a; color: #0e0e10; font-size: 0.65rem; font-weight: 700;
+    padding: 0.15rem 0.4rem; border-radius: 8px; z-index: 6; pointer-events: none;
   }
   .player-card.mentioned {
     border-color: #ffd700 !important;
@@ -440,151 +339,69 @@
   .player-card .player-container { width: 100%; height: 100%; }
   .player-card .player-container iframe { width: 100% !important; height: 100% !important; }
   .player-offline {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #0e0e10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #6d6d78;
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: #0e0e10; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; color: #6d6d78;
   }
   .player-offline img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 0.5rem;
-    border: 3px solid #2d2d33;
+    width: 80px; height: 80px; border-radius: 50%;
+    margin-bottom: 0.5rem; border: 3px solid #2d2d33;
   }
   .player-offline .name { font-weight: 700; color: #adadb8; font-size: 0.9rem; }
   .player-offline .status { font-size: 0.75rem; margin-top: 0.3rem; }
   .player-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 0.5rem;
+    position: absolute; top: 0; left: 0; right: 0; padding: 0.5rem;
     background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    pointer-events: none;
-    z-index: 5;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    pointer-events: none; z-index: 5;
   }
   .player-overlay > * { pointer-events: auto; }
   .player-info { display: flex; flex-direction: column; gap: 0.2rem; }
-  .player-info .name {
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-  }
-  .player-info .viewers {
-    font-size: 0.75rem;
-    color: #ff69b4;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-  }
+  .player-info .name { font-weight: 700; font-size: 0.9rem; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+  .player-info .viewers { font-size: 0.75rem; color: #ff69b4; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
   .player-controls { display: flex; gap: 0.3rem; }
   .player-controls button {
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    border-radius: 50%;
-    font-size: 0.9rem;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(4px);
+    width: 32px; height: 32px; padding: 0; border-radius: 50%;
+    font-size: 0.9rem; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
   }
   .player-controls button:hover { background: rgba(145, 70, 255, 0.8); }
   .player-controls button.muted { background: rgba(235, 4, 0, 0.6); }
   .player-badge-live {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: #eb0400;
-    color: white;
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 0.15rem 0.4rem;
-    border-radius: 8px;
-    animation: pulse 1.5s infinite;
-    z-index: 6;
+    position: absolute; top: 8px; right: 8px;
+    background: #eb0400; color: white; font-size: 0.65rem; font-weight: 700;
+    padding: 0.15rem 0.4rem; border-radius: 8px;
+    animation: pulse 1.5s infinite; z-index: 6;
   }
   .player-badge-mention {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    background: #ffd700;
-    color: #1a1a1a;
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 0.15rem 0.4rem;
-    border-radius: 8px;
-    z-index: 6;
+    position: absolute; top: 8px; left: 8px;
+    background: #ffd700; color: #1a1a1a; font-size: 0.65rem; font-weight: 700;
+    padding: 0.15rem 0.4rem; border-radius: 8px; z-index: 6;
   }
-  .empty-state {
-    text-align: center;
-    padding: 3rem;
-    color: #6d6d78;
-    grid-column: 1 / -1;
-  }
+  .empty-state { text-align: center; padding: 3rem; color: #6d6d78; grid-column: 1 / -1; }
   .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8); z-index: 1000;
+    align-items: center; justify-content: center; padding: 1rem;
   }
   .modal.active { display: flex; }
   .modal-content {
-    background: #18181b;
-    border: 1px solid #2d2d33;
-    border-radius: 12px;
-    padding: 1.5rem;
-    max-width: 750px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
+    background: #18181b; border: 1px solid #2d2d33; border-radius: 12px;
+    padding: 1.5rem; max-width: 750px; width: 100%; max-height: 90vh; overflow-y: auto;
   }
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
   .modal-header h2 { font-size: 1.3rem; }
   .close-btn {
-    background: transparent;
-    border: none;
-    color: #adadb8;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0;
-    width: 30px;
-    height: 30px;
+    background: transparent; border: none; color: #adadb8;
+    font-size: 1.5rem; cursor: pointer; padding: 0; width: 30px; height: 30px;
   }
   .close-btn:hover { color: #efeff1; }
   .manage-list {
-    max-height: 400px;
-    overflow-y: auto;
-    background: #0e0e10;
-    border-radius: 8px;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
+    max-height: 400px; overflow-y: auto; background: #0e0e10;
+    border-radius: 8px; padding: 0.5rem; margin-bottom: 1rem;
   }
   .manage-item {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 0.6rem 0.8rem;
-    border-bottom: 1px solid #2d2d33;
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.6rem 0.8rem; border-bottom: 1px solid #2d2d33;
   }
   .manage-item:hover { background: #1f1f23; }
   .manage-item:last-child { border-bottom: none; }
@@ -595,197 +412,101 @@
   .manage-item .ch-status.off { background: #4d1a1a; color: #ff6b6b; }
   .manage-item .ch-status.live { background: #4d1a1a; color: #ff6b6b; border: 1px solid #eb0400; }
   .manage-item .ch-remove {
-    background: transparent;
-    border: none;
-    color: #6d6d78;
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 0.2rem;
+    background: transparent; border: none; color: #6d6d78;
+    cursor: pointer; font-size: 1.1rem; padding: 0.2rem;
   }
   .manage-item .ch-remove:hover { color: #eb0400; }
   .import-export-area { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #2d2d33; }
   .import-export-area h3 { font-size: 1rem; margin-bottom: 0.8rem; }
   .ie-buttons { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
   .import-textarea {
-    width: 100%;
-    min-height: 100px;
-    padding: 0.8rem;
-    background: #0e0e10;
-    border: 1px solid #3a3a44;
-    border-radius: 8px;
-    color: #efeff1;
-    font-family: monospace;
-    font-size: 0.9rem;
-    resize: vertical;
-    margin-bottom: 0.5rem;
+    width: 100%; min-height: 100px; padding: 0.8rem;
+    background: #0e0e10; border: 1px solid #3a3a44; border-radius: 8px;
+    color: #efeff1; font-family: monospace; font-size: 0.9rem;
+    resize: vertical; margin-bottom: 0.5rem;
   }
   .import-textarea:focus { outline: none; border-color: #9146ff; }
   .ie-note { color: #6d6d78; font-size: 0.8rem; margin-bottom: 0.5rem; }
   .toast {
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1a8a4a;
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    z-index: 2000;
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    background: #1a8a4a; color: white; padding: 0.8rem 1.5rem;
+    border-radius: 8px; font-weight: 600; font-size: 0.9rem; z-index: 2000;
     animation: toastIn 0.3s ease-out, toastOut 0.3s ease-in 2s forwards;
   }
   @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } }
   @keyframes toastOut { to { opacity: 0; transform: translateX(-50%) translateY(-20px); } }
   .counter-badge {
-    background: #2d2d33;
-    color: #adadb8;
-    font-size: 0.8rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 10px;
-    margin-left: 0.5rem;
+    background: #2d2d33; color: #adadb8; font-size: 0.8rem;
+    padding: 0.2rem 0.6rem; border-radius: 10px; margin-left: 0.5rem;
   }
   .customize-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 1rem; margin-bottom: 1rem;
   }
   .preview-box {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background: #0e0e10;
-    border-radius: 8px;
-    margin-top: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem; background: #0e0e10; border-radius: 8px; margin-top: 1rem;
   }
   .preview-box img { max-width: 100px; max-height: 100px; border-radius: 8px; }
-  
   .info-tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #2d2d33;
-    color: #bf94ff;
-    font-size: 0.7rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s;
-    border: none;
-    padding: 0;
-    flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #2d2d33; color: #bf94ff; font-size: 0.7rem; font-weight: 700;
+    cursor: pointer; transition: background 0.2s; border: none; padding: 0; flex-shrink: 0;
   }
   .info-tag:hover { background: #9146ff; color: white; }
-  
   .privacy-banner {
     background: linear-gradient(135deg, #3d2d1f 0%, #4d2d1f 100%);
-    border: 1px solid #ff9900;
-    border-left: 4px solid #ff9900;
-    border-radius: 8px;
-    padding: 0.8rem 1rem;
-    margin-bottom: 1rem;
-    display: flex;
-    gap: 0.8rem;
-    align-items: flex-start;
+    border: 1px solid #ff9900; border-left: 4px solid #ff9900;
+    border-radius: 8px; padding: 0.8rem 1rem; margin-bottom: 1rem;
+    display: flex; gap: 0.8rem; align-items: flex-start;
   }
   .privacy-banner .icon { font-size: 1.3rem; flex-shrink: 0; }
-  .privacy-banner .content {
-    flex: 1;
-    font-size: 0.85rem;
-    color: #ffd9a0;
-    line-height: 1.5;
-  }
+  .privacy-banner .content { flex: 1; font-size: 0.85rem; color: #ffd9a0; line-height: 1.5; }
   .privacy-banner .content strong { color: #ffb347; }
   .privacy-banner .content a { color: #ffcc80; text-decoration: underline; }
   .privacy-banner .hide-btn {
-    background: transparent;
-    border: 1px solid #ff9900;
-    color: #ffd9a0;
-    padding: 0.3rem 0.6rem;
-    font-size: 0.75rem;
-    border-radius: 4px;
-    cursor: pointer;
-    white-space: nowrap;
+    background: transparent; border: 1px solid #ff9900; color: #ffd9a0;
+    padding: 0.3rem 0.6rem; font-size: 0.75rem; border-radius: 4px;
+    cursor: pointer; white-space: nowrap;
   }
   .privacy-banner .hide-btn:hover { background: rgba(255, 153, 0, 0.2); }
   .privacy-banner.hidden { display: none; }
-  
   .credentials-hidden { display: none; }
   .credentials-hidden.show { display: block; }
-  
-  .help-steps {
-    counter-reset: step;
-    list-style: none;
-    padding: 0;
-  }
+  .help-steps { counter-reset: step; list-style: none; padding: 0; }
   .help-steps li {
     counter-increment: step;
-    padding: 0.8rem 0.8rem 0.8rem 3rem;
-    margin-bottom: 0.5rem;
-    background: #0e0e10;
-    border-radius: 8px;
-    position: relative;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    padding: 0.8rem 0.8rem 0.8rem 3rem; margin-bottom: 0.5rem;
+    background: #0e0e10; border-radius: 8px; position: relative;
+    font-size: 0.9rem; line-height: 1.5;
   }
   .help-steps li::before {
-    content: counter(step);
-    position: absolute;
-    left: 0.8rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    background: #9146ff;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.85rem;
+    content: counter(step); position: absolute; left: 0.8rem; top: 50%;
+    transform: translateY(-50%); width: 24px; height: 24px;
+    background: #9146ff; color: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.85rem;
   }
   .help-steps li code {
-    background: #2d2d33;
-    padding: 0.1rem 0.4rem;
-    border-radius: 4px;
-    font-size: 0.85em;
-    color: #bf94ff;
+    background: #2d2d33; padding: 0.1rem 0.4rem; border-radius: 4px;
+    font-size: 0.85em; color: #bf94ff;
   }
   .help-steps li a { color: #bf94ff; text-decoration: underline; }
   .help-warning {
-    background: #3d1f1f;
-    border-left: 3px solid #eb0400;
-    padding: 0.6rem 0.8rem;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    color: #ffb3b3;
-    margin-top: 1rem;
+    background: #3d1f1f; border-left: 3px solid #eb0400;
+    padding: 0.6rem 0.8rem; border-radius: 6px;
+    font-size: 0.85rem; color: #ffb3b3; margin-top: 1rem;
   }
-  
   .help-tabs {
-    display: flex;
-    gap: 0.3rem;
-    margin-bottom: 1rem;
-    background: #0e0e10;
-    padding: 0.3rem;
-    border-radius: 8px;
+    display: flex; gap: 0.3rem; margin-bottom: 1rem;
+    background: #0e0e10; padding: 0.3rem; border-radius: 8px;
   }
   .help-tab {
-    flex: 1;
-    padding: 0.6rem 1rem;
-    background: transparent;
-    border: none;
-    color: #adadb8;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.2s;
+    flex: 1; padding: 0.6rem 1rem; background: transparent; border: none;
+    color: #adadb8; font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; border-radius: 6px; transition: all 0.2s;
   }
   .help-tab:hover { background: #1f1f23; color: #efeff1; }
   .help-tab.active { background: #9146ff; color: white; }
@@ -793,13 +514,9 @@
   .help-tab-content.active { display: block; }
   .help-recommendation {
     background: linear-gradient(135deg, #1a4d2e 0%, #15703d 100%);
-    border: 1px solid #4ade80;
-    border-radius: 8px;
-    padding: 0.8rem 1rem;
-    margin-bottom: 1rem;
-    display: flex;
-    gap: 0.8rem;
-    align-items: center;
+    border: 1px solid #4ade80; border-radius: 8px;
+    padding: 0.8rem 1rem; margin-bottom: 1rem;
+    display: flex; gap: 0.8rem; align-items: center;
   }
   .help-recommendation .icon { font-size: 1.5rem; }
   .help-recommendation .content { flex: 1; font-size: 0.9rem; color: #d1fae5; }
@@ -855,25 +572,18 @@
 
 <div class="header" id="header">
   <div class="container">
-    
-    <!-- ✅ NUEVA SECCIÓN DE CANALES (siempre visible) -->
     <div class="channels-panel">
       <div class="channels-panel-header">
-        <h3>
-          📺 Canales
-          <span class="counter" id="channelCounter">0 canales</span>
-        </h3>
+        <h3>📺 Canales <span class="counter" id="channelCounter">0 canales</span></h3>
         <button id="manageChannelsBtn" class="secondary">⚙ Gestionar canales</button>
       </div>
-      
       <div class="quick-add-row">
         <textarea class="quick-add-input" id="quickAddInput" rows="2" placeholder="kyerou, dang3rclips, marionerja&#10;(separados por comas, espacios o saltos de línea)"></textarea>
         <button id="quickAddBtn">➕ Añadir</button>
       </div>
-      <div class="quick-add-hint">💡 Puedes pegar varios canales de golpe. Se ignoran los duplicados y los que ya tienes.</div>
+      <div class="quick-add-hint">💡 Puedes pegar varios canales de golpe. Se ignoran los duplicados.</div>
     </div>
-    
-    <!-- Banner de privacidad -->
+
     <div class="privacy-banner" id="privacyBanner">
       <div class="icon">🔒</div>
       <div class="content">
@@ -883,46 +593,29 @@
       </div>
       <button class="hide-btn" id="hidePrivacyBtn">Ocultar aviso</button>
     </div>
-    
-    <!-- Sección de credenciales (ocultable) -->
+
     <div class="config">
       <div style="display:flex; gap:0.5rem; margin-bottom:0.8rem; align-items:center; flex-wrap:wrap;">
         <button id="toggleCredentialsBtn" class="secondary" style="padding:0.4rem 0.8rem; font-size:0.8rem;">🙈 Ocultar credenciales</button>
         <span style="font-size:0.8rem; color:#adadb8;">Solo necesitas configurarlas una vez</span>
       </div>
-      
       <div id="credentialsSection" class="credentials-hidden show">
         <div class="config-row">
           <div class="config-field" style="flex:2">
-            <label>
-              Client ID
-              <button class="info-tag" id="helpClientIdBtn" title="¿Cómo conseguir el Client ID?">ⓘ</button>
-            </label>
+            <label>Client ID <button class="info-tag" id="helpClientIdBtn" title="¿Cómo conseguir el Client ID?">ⓘ</button></label>
             <input type="text" id="clientId" placeholder="tu_client_id_aqui" style="min-width:200px" />
           </div>
           <div class="config-field" style="flex:2">
-            <label>
-              Client Secret
-              <button class="info-tag" id="helpClientSecretBtn" title="¿Cómo conseguir el Client Secret?">ⓘ</button>
-            </label>
+            <label>Client Secret <button class="info-tag" id="helpClientSecretBtn" title="¿Cómo conseguir el Client Secret?">ⓘ</button></label>
             <input type="password" id="clientSecret" placeholder="tu_client_secret_aqui" style="min-width:200px" />
           </div>
           <button id="authBtn">🔑 Auth</button>
           <button id="refreshBtn" class="secondary" disabled>🔄 Refrescar</button>
         </div>
         <div class="status-bar">
-          <div class="status-item">
-            <span class="status-dot" id="tokenDot"></span>
-            <span id="tokenStatus">No autenticado</span>
-          </div>
-          <div class="status-item">
-            <span class="status-dot" id="apiDot"></span>
-            <span id="apiStatus">API inactiva</span>
-          </div>
-          <div class="status-item">
-            <span class="status-dot" id="chatDot"></span>
-            <span id="chatStatus">Chat inactivo</span>
-          </div>
+          <div class="status-item"><span class="status-dot" id="tokenDot"></span><span id="tokenStatus">No autenticado</span></div>
+          <div class="status-item"><span class="status-dot" id="apiDot"></span><span id="apiStatus">API inactiva</span></div>
+          <div class="status-item"><span class="status-dot" id="chatDot"></span><span id="chatStatus">Chat inactivo</span></div>
         </div>
       </div>
     </div>
@@ -959,44 +652,17 @@
     <div class="customize-panel">
       <h3 style="margin-bottom:1rem;">🎨 Personalización</h3>
       <div class="customize-row">
-        <div class="config-field">
-          <label>Título</label>
-          <input type="text" id="customTitle" placeholder="Mi Dashboard" />
-        </div>
-        <div class="config-field">
-          <label>Tamaño título (px)</label>
-          <input type="number" id="customTitleSize" value="24" min="12" max="80" />
-        </div>
-        <div class="config-field">
-          <label>Tamaño logo (px)</label>
-          <input type="number" id="customLogoSize" value="32" min="16" max="200" />
-        </div>
-        <div class="config-field">
-          <label>Color del texto</label>
-          <input type="color" id="customTextColor" value="#efeff1" />
-        </div>
-        <div class="config-field">
-          <label>Color de fondo</label>
-          <input type="color" id="customBgColor" value="#0e0e10" />
-        </div>
+        <div class="config-field"><label>Título</label><input type="text" id="customTitle" placeholder="Mi Dashboard" /></div>
+        <div class="config-field"><label>Tamaño título (px)</label><input type="number" id="customTitleSize" value="24" min="12" max="80" /></div>
+        <div class="config-field"><label>Tamaño logo (px)</label><input type="number" id="customLogoSize" value="32" min="16" max="200" /></div>
+        <div class="config-field"><label>Color del texto</label><input type="color" id="customTextColor" value="#efeff1" /></div>
+        <div class="config-field"><label>Color de fondo</label><input type="color" id="customBgColor" value="#0e0e10" /></div>
       </div>
       <div class="customize-row">
-        <div class="config-field">
-          <label>Logo (URL)</label>
-          <input type="text" id="customLogo" placeholder="https://..." />
-        </div>
-        <div class="config-field">
-          <label>Logo (archivo PC)</label>
-          <input type="file" id="customLogoFile" accept="image/*" />
-        </div>
-        <div class="config-field">
-          <label>Fondo (URL)</label>
-          <input type="text" id="customBgImage" placeholder="https://..." />
-        </div>
-        <div class="config-field">
-          <label>Fondo (archivo PC)</label>
-          <input type="file" id="customBgImageFile" accept="image/*" />
-        </div>
+        <div class="config-field"><label>Logo (URL)</label><input type="text" id="customLogo" placeholder="https://..." /></div>
+        <div class="config-field"><label>Logo (archivo PC)</label><input type="file" id="customLogoFile" accept="image/*" /></div>
+        <div class="config-field"><label>Fondo (URL)</label><input type="text" id="customBgImage" placeholder="https://..." /></div>
+        <div class="config-field"><label>Fondo (archivo PC)</label><input type="file" id="customBgImageFile" accept="image/*" /></div>
       </div>
       <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem;">
         <button id="applyCustomBtn" class="success">✅ Aplicar cambios</button>
@@ -1033,106 +699,43 @@
         <button class="help-tab active" data-tab="credentials">🔑 Credenciales</button>
         <button class="help-tab" data-tab="hosting">🌐 Dónde alojar</button>
       </div>
-      
       <div class="help-tab-content active" id="tab-credentials">
-        <p style="color:#adadb8; font-size:0.9rem; margin-bottom:1rem;">
-          Sigue estos pasos para crear una app en Twitch y obtener tus credenciales:
-        </p>
+        <p style="color:#adadb8; font-size:0.9rem; margin-bottom:1rem;">Sigue estos pasos para crear una app en Twitch:</p>
         <ol class="help-steps">
-          <li>
-            Ve a la consola de desarrolladores de Twitch:<br>
-            <a href="https://dev.twitch.tv/console/apps" target="_blank">dev.twitch.tv/console/apps</a>
-          </li>
-          <li>
-            Pulsa <strong>"Register Your Application"</strong> (Registrar tu aplicación).
-          </li>
-          <li>
-            Rellena los campos:<br>
-            • <strong>Name</strong>: el nombre que quieras (ej: "Mi Dashboard")<br>
-            • <strong>OAuth Redirect URLs</strong>: añade <code>http://localhost</code> y también la URL de tu hosting (ej: <code>https://tu-app.netlify.app</code>)<br>
-            • <strong>Category</strong>: selecciona <em>"Application Integration"</em>
-          </li>
-          <li>
-            Pulsa <strong>"Create"</strong> y luego en tu nueva app pulsa <strong>"Manage"</strong>.
-          </li>
-          <li>
-            Verás tu <strong>Client ID</strong> directamente. Para el <strong>Client Secret</strong>, pulsa <strong>"New Secret"</strong> y cópialo.
-          </li>
-          <li>
-            Pega ambos valores en los campos correspondientes de esta app y pulsa <strong>"🔑 Auth"</strong>.
-          </li>
+          <li>Ve a <a href="https://dev.twitch.tv/console/apps" target="_blank">dev.twitch.tv/console/apps</a></li>
+          <li>Pulsa <strong>"Register Your Application"</strong></li>
+          <li>Rellena:<br>• <strong>Name</strong>: el que quieras<br>• <strong>OAuth Redirect URLs</strong>: <code>http://localhost</code> y la URL de tu hosting<br>• <strong>Category</strong>: <em>"Application Integration"</em></li>
+          <li>Pulsa <strong>"Create"</strong> y luego <strong>"Manage"</strong></li>
+          <li>Copia el <strong>Client ID</strong> y genera el <strong>Client Secret</strong> con "New Secret"</li>
+          <li>Pégalos aquí y pulsa <strong>"🔑 Auth"</strong></li>
         </ol>
-        <div class="help-warning">
-          ⚠️ <strong>Importante:</strong> Si cambias de dominio (Netlify, GitHub Pages, etc.), 
-          recuerda añadir la nueva URL en <em>OAuth Redirect URLs</em> de tu app de Twitch, 
-          o los players de vídeo no cargarán.
-        </div>
+        <div class="help-warning">⚠️ Si cambias de dominio, añade la nueva URL en <em>OAuth Redirect URLs</em> o los players no cargarán.</div>
       </div>
-      
       <div class="help-tab-content" id="tab-hosting">
         <div class="help-recommendation">
           <div class="icon">⭐</div>
-          <div class="content">
-            <strong>Recomendado: Netlify</strong><br>
-            Es la opción más rápida y sencilla. Solo arrastra tu archivo y listo en 30 segundos.
-          </div>
+          <div class="content"><strong>Recomendado: Netlify</strong><br>Es la opción más rápida. Solo arrastra tu archivo y listo en 30 segundos.</div>
         </div>
-        
-        <h3 style="margin-bottom:0.8rem; font-size:1rem;">🟣 Opción 1: Netlify (Recomendado)</h3>
+        <h3 style="margin-bottom:0.8rem; font-size:1rem;">🟣 Opción 1: Netlify</h3>
         <ol class="help-steps">
-          <li>
-            Crea una cuenta gratuita en <a href="https://app.netlify.com/signup" target="_blank">app.netlify.com</a>
-          </li>
-          <li>
-            Una vez dentro, verás un área que dice <strong>"Drag and drop your site folder here"</strong>
-          </li>
-          <li>
-            Crea una carpeta en tu PC y dentro pon tu archivo <code>index.html</code>
-          </li>
-          <li>
-            Arrastra esa carpeta al área de Netlify
-          </li>
-          <li>
-            En 30 segundos tendrás tu URL tipo <code>https://nombre-aleatorio.netlify.app</code>
-          </li>
-          <li>
-            <strong>Importante:</strong> Copia esa URL y añádela en <em>OAuth Redirect URLs</em> de tu app de Twitch (ver pestaña "Credenciales")
-          </li>
+          <li>Crea cuenta en <a href="https://app.netlify.com/signup" target="_blank">app.netlify.com</a></li>
+          <li>Verás un área que dice <strong>"Drag and drop your site folder here"</strong></li>
+          <li>Crea una carpeta con tu <code>index.html</code> dentro</li>
+          <li>Arrastra la carpeta a Netlify</li>
+          <li>En 30 segundos tendrás tu URL</li>
+          <li>Añade esa URL en <em>OAuth Redirect URLs</em> de tu app de Twitch</li>
         </ol>
-        
         <h3 style="margin:1.5rem 0 0.8rem; font-size:1rem;">🔵 Opción 2: GitHub Pages</h3>
         <ol class="help-steps">
-          <li>
-            Crea una cuenta en <a href="https://github.com/signup" target="_blank">github.com</a>
-          </li>
-          <li>
-            Pulsa el botón <strong>"+"</strong> arriba a la derecha → <strong>"New repository"</strong>
-          </li>
-          <li>
-            Ponle un nombre (ej: <code>twitch-dashboard</code>), marca <strong>"Public"</strong> y pulsa <strong>"Create repository"</strong>
-          </li>
-          <li>
-            Pulsa <strong>"uploading an existing file"</strong> y sube tu <code>index.html</code>
-          </li>
-          <li>
-            Ve a <strong>Settings → Pages</strong> (en el menú lateral izquierdo)
-          </li>
-          <li>
-            En "Source" selecciona <strong>"Deploy from a branch"</strong>, rama <code>main</code>, carpeta <code>/ (root)</code>
-          </li>
-          <li>
-            Guarda y espera 1-2 minutos. Tu URL será <code>https://tuusuario.github.io/twitch-dashboard/</code>
-          </li>
-          <li>
-            <strong>Importante:</strong> Añade esa URL en <em>OAuth Redirect URLs</em> de tu app de Twitch
-          </li>
+          <li>Crea cuenta en <a href="https://github.com/signup" target="_blank">github.com</a></li>
+          <li>Botón <strong>"+"</strong> → <strong>"New repository"</strong></li>
+          <li>Nombre (ej: <code>twitch-dashboard</code>), <strong>Public</strong>, <strong>Create</strong></li>
+          <li><strong>"uploading an existing file"</strong> → sube <code>index.html</code></li>
+          <li><strong>Settings → Pages</strong></li>
+          <li>Source: <strong>"Deploy from a branch"</strong>, rama <code>main</code>, carpeta <code>/ (root)</code></li>
+          <li>Espera 1-2 min. URL: <code>https://tuusuario.github.io/twitch-dashboard/</code></li>
+          <li>Añade esa URL en <em>OAuth Redirect URLs</em></li>
         </ol>
-        
-        <div class="help-warning">
-          💡 <strong>Consejo:</strong> Si solo vas a usar la app tú en tu PC, no necesitas hosting. 
-          Puedes abrir el <code>index.html</code> directamente en tu navegador, pero necesitarás un servidor local 
-          (como la extensión "Live Server" de VS Code) para que funcionen los players de Twitch.
-        </div>
       </div>
     </div>
   </div>
@@ -1144,9 +747,7 @@
       <h2>⚙ Gestión de canales</h2>
       <button class="close-btn" id="closeManageBtn">×</button>
     </div>
-    <p style="color:#adadb8; font-size:0.85rem; margin-bottom:1rem;">
-      Activa/desactiva canales. Los desactivados no se monitorizan.
-    </p>
+    <p style="color:#adadb8; font-size:0.85rem; margin-bottom:1rem;">Activa/desactiva canales. Los desactivados no se monitorizan.</p>
     <div style="display:flex; gap:0.5rem; margin-bottom:0.8rem; flex-wrap:wrap;">
       <button id="selectAllBtn" class="secondary" style="font-size:0.8rem; padding:0.4rem 0.8rem;">✅ Todos</button>
       <button id="deselectAllBtn" class="secondary" style="font-size:0.8rem; padding:0.4rem 0.8rem;">⬜ Ninguno</button>
@@ -1202,10 +803,7 @@ $('soundEnabledToggle').checked = soundEnabled;
 $('muteAllToggle').checked = globalMuted;
 updateMuteLabel();
 
-if (localStorage.getItem('tw_privacy_hidden') === 'true') {
-  $('privacyBanner').classList.add('hidden');
-}
-
+if (localStorage.getItem('tw_privacy_hidden') === 'true') $('privacyBanner').classList.add('hidden');
 if (localStorage.getItem('tw_credentials_hidden') === 'true') {
   $('credentialsSection').classList.remove('show');
   $('toggleCredentialsBtn').textContent = '👁 Mostrar credenciales';
@@ -1223,7 +821,6 @@ if (customConfig.bgImage && customConfig.bgImage.startsWith('data:')) $('customB
 
 applyCustomization();
 
-// ✅ EVENTOS DE AYUDA Y PRIVACIDAD
 $('helpClientIdBtn').addEventListener('click', () => openHelpModal('credentials'));
 $('helpClientSecretBtn').addEventListener('click', () => openHelpModal('credentials'));
 $('closeHelpBtn').addEventListener('click', () => $('helpModal').classList.remove('active'));
@@ -1251,31 +848,21 @@ $('toggleCredentialsBtn').addEventListener('click', () => {
 });
 
 function openHelpModal(tab) {
-  if (tab === 'credentials') {
-    $('helpModalTitle').textContent = '📘 Ayuda: Credenciales de Twitch';
-  } else {
-    $('helpModalTitle').textContent = '🌐 Ayuda: Dónde alojar la app';
-  }
-  document.querySelectorAll('.help-tab').forEach(t => {
-    t.classList.toggle('active', t.dataset.tab === tab);
-  });
-  document.querySelectorAll('.help-tab-content').forEach(c => {
-    c.classList.toggle('active', c.id === 'tab-' + tab);
-  });
+  $('helpModalTitle').textContent = tab === 'credentials' ? '📘 Ayuda: Credenciales de Twitch' : '🌐 Ayuda: Dónde alojar la app';
+  document.querySelectorAll('.help-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.help-tab-content').forEach(c => c.classList.toggle('active', c.id === 'tab-' + tab));
   $('helpModal').classList.add('active');
 }
 
 $('togglePanelBtn').addEventListener('click', () => {
   $('header').classList.toggle('collapsed');
-  const isCollapsed = $('header').classList.contains('collapsed');
-  $('togglePanelBtn').textContent = isCollapsed ? '⚙' : '✕';
+  $('togglePanelBtn').textContent = $('header').classList.contains('collapsed') ? '⚙' : '✕';
 });
 
 $('authBtn').addEventListener('click', authenticate);
-// ✅ Ya no hay addChannelBtn individual, ahora es quickAddBtn
 $('refreshBtn').addEventListener('click', () => { clearTimeout(pollTimer); refreshAll(); });
 $('closeManageBtn').addEventListener('click', () => $('manageModal').classList.remove('active'));
-$('manageChannelsBtn').addEventListener('click', openManage); // ✅ Renombrado
+$('manageChannelsBtn').addEventListener('click', openManage);
 $('selectAllBtn').addEventListener('click', () => toggleAll(true));
 $('deselectAllBtn').addEventListener('click', () => toggleAll(false));
 $('exportBtn').addEventListener('click', exportClipboard);
@@ -1290,14 +877,9 @@ $('applyCustomBtn').addEventListener('click', applyCustomConfig);
 $('resetCustomBtn').addEventListener('click', resetCustomConfig);
 $('removeLogoBtn').addEventListener('click', removeLogo);
 
-// ✅ NUEVO: Quick add
 $('quickAddBtn').addEventListener('click', quickAddChannels);
 $('quickAddInput').addEventListener('keydown', e => {
-  // Ctrl/Cmd + Enter para añadir rápido
-  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-    e.preventDefault();
-    quickAddChannels();
-  }
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); quickAddChannels(); }
 });
 
 $('muteAllToggle').addEventListener('change', e => {
@@ -1308,19 +890,15 @@ $('muteAllToggle').addEventListener('change', e => {
 });
 
 $('newKeyword').addEventListener('keypress', e => { if (e.key === 'Enter') addKeyword(); });
-
 $('filterAllBtn').addEventListener('click', () => setFilter('all'));
 $('filterLiveBtn').addEventListener('click', () => setFilter('live'));
 $('filterAlertBtn').addEventListener('click', () => setFilter('alert'));
 $('sortBySelect').addEventListener('change', e => setSort(e.target.value));
-
 $('viewAvatarBtn').addEventListener('click', () => setView('avatar'));
 $('viewMultiBtn').addEventListener('click', () => setView('multi'));
-
 $('layoutSelector').querySelectorAll('button').forEach(btn => {
   btn.addEventListener('click', () => setLayout(btn.dataset.layout));
 });
-
 $('alertsEnabledToggle').addEventListener('change', e => {
   alertsEnabled = e.target.checked;
   localStorage.setItem('tw_alerts_enabled', alertsEnabled);
@@ -1329,18 +907,13 @@ $('soundEnabledToggle').addEventListener('change', e => {
   soundEnabled = e.target.checked;
   localStorage.setItem('tw_sound_enabled', soundEnabled);
 });
-
 $('customLogoFile').addEventListener('change', (e) => handleImageUpload(e, 'logo'));
 $('customBgImageFile').addEventListener('change', (e) => handleImageUpload(e, 'bgImage'));
 
 function handleImageUpload(e, key) {
   const file = e.target.files[0];
   if (!file) return;
-  if (file.size > 3 * 1024 * 1024) {
-    showToast('⚠️ La imagen es muy grande (máx 3MB)');
-    e.target.value = '';
-    return;
-  }
+  if (file.size > 3 * 1024 * 1024) { showToast('⚠️ La imagen es muy grande (máx 3MB)'); e.target.value = ''; return; }
   const reader = new FileReader();
   reader.onload = (ev) => {
     customConfig[key] = ev.target.result;
@@ -1362,49 +935,22 @@ function removeLogo() {
   showToast('❌ Logo eliminado');
 }
 
-// ✅ NUEVA FUNCIÓN: Añadir canales rápidamente (múltiples de golpe)
 function quickAddChannels() {
   const text = $('quickAddInput').value;
-  if (!text.trim()) {
-    showToast('⚠️ Escribe al menos un canal');
-    return;
-  }
-  
-  // Parsear: acepta comas, espacios, saltos de línea, @, URLs completas
-  const parsed = text
-    .split(/[\n,;\s]+/)
-    .map(c => c.trim().toLowerCase()
-      .replace(/^@/, '')
-      .replace(/^https?:\/\/(www\.)?twitch\.tv\//, '')
-    )
-    .filter(c => c && /^[a-z0-9_]{4,25}$/.test(c));
-  
-  if (parsed.length === 0) {
-    showToast('⚠️ No se encontraron canales válidos');
-    return;
-  }
-  
-  // Filtrar duplicados y existentes
+  if (!text.trim()) { showToast('⚠️ Escribe al menos un canal'); return; }
+  const parsed = text.split(/[\n,;\s]+/).map(c => c.trim().toLowerCase().replace(/^@/, '').replace(/^https?:\/\/(www\.)?twitch\.tv\//, '')).filter(c => c && /^[a-z0-9_]{4,25}$/.test(c));
+  if (parsed.length === 0) { showToast('⚠️ No se encontraron canales válidos'); return; }
   const newOnes = parsed.filter(c => !channels.includes(c));
-  
-  if (newOnes.length === 0) {
-    showToast('ℹ️ Todos esos canales ya los tienes añadidos');
-    return;
-  }
-  
+  if (newOnes.length === 0) { showToast('ℹ️ Todos esos canales ya los tienes añadidos'); return; }
   if (channels.length + newOnes.length > 100) {
     const allowed = 100 - channels.length;
-    if (allowed <= 0) {
-      showToast('⚠️ Ya tienes el máximo de 100 canales');
-      return;
-    }
+    if (allowed <= 0) { showToast('⚠️ Ya tienes el máximo de 100 canales'); return; }
     channels.push(...newOnes.slice(0, allowed));
     showToast(`⚠️ Límite de 100. Añadidos ${allowed} de ${newOnes.length}`);
   } else {
     channels.push(...newOnes);
     showToast(`✅ ${newOnes.length} canal(es) añadido(s)`);
   }
-  
   saveChannels();
   $('quickAddInput').value = '';
   renderGrid();
@@ -1422,22 +968,14 @@ updateChannelCount();
 if (channels.length > 0) {
   renderGrid();
   if (localStorage.getItem('tw_client_id') && localStorage.getItem('tw_client_secret')) {
-    authenticate().then(() => { 
-      if (accessToken) refreshAll();
-    });
+    authenticate().then(() => { if (accessToken) refreshAll(); });
   }
 }
 
-function updateMuteLabel() {
-  $('muteAllLabel').textContent = globalMuted ? '🔊 Activar audio' : '🔇 Silenciar todo';
-}
-
+function updateMuteLabel() { $('muteAllLabel').textContent = globalMuted ? '🔊 Activar audio' : '🔇 Silenciar todo'; }
 function applyMuteToAll() {
   Object.keys(twitchPlayers).forEach(ch => {
-    try {
-      twitchPlayers[ch].setMuted(globalMuted);
-      channelMuted[ch] = globalMuted;
-    } catch (e) {}
+    try { twitchPlayers[ch].setMuted(globalMuted); channelMuted[ch] = globalMuted; } catch (e) {}
   });
   updatePlayerCardsUI();
 }
@@ -1479,44 +1017,24 @@ function applyCustomization() {
   const displayTitle = customConfig.title || '🎮 Twitch Multi-View by KYEROU';
   const titleSize = customConfig.titleSize || 24;
   const logoSize = customConfig.logoSize || 32;
-  
   titleEl.style.fontSize = titleSize + 'px';
-  
   let html = '';
-  if (customConfig.logo) {
-    html += `<img src="${esc(customConfig.logo)}" alt="Logo" style="height:${logoSize}px;" onerror="this.style.display='none'" />`;
-  }
+  if (customConfig.logo) html += `<img src="${esc(customConfig.logo)}" alt="Logo" style="height:${logoSize}px;" onerror="this.style.display='none'" />`;
   html += esc(displayTitle);
-  
-  if (!customConfig.title) {
-    titleEl.innerHTML = `<a href="https://www.twitch.tv/kyerou" target="_blank">${html}</a>`;
-  } else {
-    titleEl.innerHTML = html;
-  }
-
-  if (customConfig.textColor) {
-    document.body.style.color = customConfig.textColor;
-  } else {
-    document.body.style.color = '#efeff1';
-  }
-
-  if (customConfig.bgImage) {
-    document.body.style.background = `url(${customConfig.bgImage}) center/cover fixed`;
-  } else if (customConfig.bgColor) {
-    document.body.style.background = customConfig.bgColor;
-  } else {
-    document.body.style.background = 'linear-gradient(135deg, #0e0e10 0%, #1f1f23 100%)';
-  }
-
+  if (!customConfig.title) titleEl.innerHTML = `<a href="https://www.twitch.tv/kyerou" target="_blank">${html}</a>`;
+  else titleEl.innerHTML = html;
+  if (customConfig.textColor) document.body.style.color = customConfig.textColor;
+  else document.body.style.color = '#efeff1';
+  if (customConfig.bgImage) document.body.style.background = `url(${customConfig.bgImage}) center/cover fixed`;
+  else if (customConfig.bgColor) document.body.style.background = customConfig.bgColor;
+  else document.body.style.background = 'linear-gradient(135deg, #0e0e10 0%, #1f1f23 100%)';
   if (customConfig.logo) {
     $('previewBox').style.display = 'flex';
     $('previewLogo').src = customConfig.logo;
     $('previewLogo').style.height = Math.min(logoSize, 100) + 'px';
     $('previewTitle').textContent = displayTitle;
     $('previewTitle').style.fontSize = Math.min(titleSize, 32) + 'px';
-  } else {
-    $('previewBox').style.display = 'none';
-  }
+  } else $('previewBox').style.display = 'none';
 }
 
 function setView(view) {
@@ -1524,9 +1042,7 @@ function setView(view) {
   localStorage.setItem('tw_view', view);
   updateViewButtons();
   updateLayoutButtons();
-  
   const grid = $('grid');
-  
   if (view === 'avatar') {
     destroyAllPlayers();
     grid.innerHTML = '';
@@ -1538,7 +1054,6 @@ function setView(view) {
     if (currentLayout !== 'auto') layoutClass = `layout-${currentLayout}`;
     grid.className = `multiview ${layoutClass}`;
   }
-  
   renderGrid();
 }
 
@@ -1567,18 +1082,15 @@ function updateGridLayout() {
     let layoutClass = '';
     if (currentLayout !== 'auto') layoutClass = `layout-${currentLayout}`;
     grid.className = `multiview ${layoutClass}`;
-  } else {
-    grid.className = 'grid';
-  }
+  } else grid.className = 'grid';
 }
 
 function getActiveChannels() { return channels.filter(c => !disabledChannels.includes(c)); }
 function isChannelActive(ch) { return !disabledChannels.includes(ch); }
 
 function toggleChannel(ch) {
-  if (disabledChannels.includes(ch)) {
-    disabledChannels = disabledChannels.filter(c => c !== ch);
-  } else {
+  if (disabledChannels.includes(ch)) disabledChannels = disabledChannels.filter(c => c !== ch);
+  else {
     disabledChannels.push(ch);
     disconnectChat(ch);
     destroyPlayer(ch);
@@ -1590,9 +1102,8 @@ function toggleChannel(ch) {
 }
 
 function toggleAll(enable) {
-  if (enable) {
-    disabledChannels = [];
-  } else {
+  if (enable) disabledChannels = [];
+  else {
     disabledChannels = [...channels];
     Object.keys(chatSockets).forEach(ch => disconnectChat(ch));
     destroyAllPlayers();
@@ -1607,21 +1118,14 @@ function updateChannelCount() {
   const active = getActiveChannels().length;
   const total = channels.length;
   const text = active === total ? `${total} canales` : `${active}/${total} activos`;
-  $('channelCount').textContent = text;
   $('channelCounter').textContent = text;
 }
 
-function openManage() {
-  renderManageList();
-  $('manageModal').classList.add('active');
-}
+function openManage() { renderManageList(); $('manageModal').classList.add('active'); }
 
 function renderManageList() {
   const list = $('manageList');
-  if (channels.length === 0) {
-    list.innerHTML = '<div style="text-align:center; color:#6d6d78; padding:2rem;">No hay canales</div>';
-    return;
-  }
+  if (channels.length === 0) { list.innerHTML = '<div style="text-align:center; color:#6d6d78; padding:2rem;">No hay canales</div>'; return; }
   list.innerHTML = channels.map(ch => {
     const active = isChannelActive(ch);
     const data = channelData[ch];
@@ -1633,8 +1137,7 @@ function renderManageList() {
         ${live ? '<span class="ch-status live">🔴 LIVE</span>' : '<span class="ch-status off">Offline</span>'}
         <span class="ch-status ${active ? 'on' : 'off'}">${active ? 'Activo' : 'Inactivo'}</span>
         <button class="ch-remove" onclick="removeChannel('${esc(ch)}')" title="Eliminar">🗑</button>
-      </div>
-    `;
+      </div>`;
   }).join('');
 }
 
@@ -1700,9 +1203,7 @@ function importRawText(text, replace) {
     channels.forEach(ch => { if (!parsed.includes(ch)) { disconnectChat(ch); destroyPlayer(ch); } });
     channels = [...new Set(parsed)];
     disabledChannels = disabledChannels.filter(c => channels.includes(c));
-  } else {
-    channels = [...channels, ...parsed.filter(c => !channels.includes(c))];
-  }
+  } else channels = [...channels, ...parsed.filter(c => !channels.includes(c))];
   if (channels.length > 100) channels = channels.slice(0, 100);
   saveChannels();
   renderGrid(); renderManageList(); updateChannelCount();
@@ -1743,10 +1244,7 @@ function removeKeyword(word) {
 
 function renderKeywordsList() {
   const list = $('keywordsList');
-  if (highlightWords.length === 0) {
-    list.innerHTML = '<span style="color:#6d6d78; font-size:0.85rem; font-style:italic;">No hay palabras.</span>';
-    return;
-  }
+  if (highlightWords.length === 0) { list.innerHTML = '<span style="color:#6d6d78; font-size:0.85rem; font-style:italic;">No hay palabras.</span>'; return; }
   list.innerHTML = highlightWords.map(w => `
     <span class="keyword-tag">${esc(w)}<button onclick="removeKeyword('${esc(w).replace(/'/g,"\\'")}')">×</button></span>
   `).join('');
@@ -1785,10 +1283,7 @@ function checkMention(channel, message, userId) {
   if (alertCooldowns[channel] && now - alertCooldowns[channel] < 30000) return;
   const msgLower = message.toLowerCase();
   const matched = highlightWords.find(w => msgLower.includes(w));
-  if (matched) {
-    triggerAlert(channel, matched, message);
-    alertCooldowns[channel] = now;
-  }
+  if (matched) { triggerAlert(channel, matched, message); alertCooldowns[channel] = now; }
 }
 
 function triggerAlert(channel, word, fullMessage) {
@@ -1810,9 +1305,7 @@ function triggerAlert(channel, word, fullMessage) {
   updateCardUI(channel);
 }
 
-function dismissAlert(ch) {
-  if (channelData[ch]) { channelData[ch].mentioned = false; updateCardUI(ch); }
-}
+function dismissAlert(ch) { if (channelData[ch]) { channelData[ch].mentioned = false; updateCardUI(ch); } }
 
 function setFilter(f) {
   currentFilter = f;
@@ -1858,19 +1351,13 @@ async function authenticate() {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({ client_id: cid, client_secret: sec, grant_type: 'client_credentials' })
     });
-    if (!r.ok) {
-      const errText = await r.text();
-      throw new Error(`HTTP ${r.status}: ${errText.substring(0,100)}`);
-    }
+    if (!r.ok) { const errText = await r.text(); throw new Error(`HTTP ${r.status}: ${errText.substring(0,100)}`); }
     accessToken = (await r.json()).access_token;
     setTokenStatus('✓ Autenticado', 'ok');
     $('refreshBtn').disabled = false;
     if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
     showToast('✅ Autenticado. Considera ocultar las credenciales antes de hacer stream.');
-  } catch (e) {
-    setTokenStatus('✗ Error', 'error');
-    alert('Error: ' + e.message);
-  }
+  } catch (e) { setTokenStatus('✗ Error', 'error'); alert('Error: ' + e.message); }
 }
 
 function removeChannel(ch) {
@@ -1899,10 +1386,12 @@ function renderGrid() {
   applyFilters();
 }
 
+// ✅ FIX: renderAvatarView ahora ordena los canales
 function renderAvatarView(grid, active) {
   destroyAllPlayers();
   const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%230e0e10" width="100" height="100"/%3E%3Ctext x="50" y="55" text-anchor="middle" fill="%236d6d78" font-size="40"%3E?%3C/text%3E%3C/svg%3E';
-  grid.innerHTML = active.map(ch => {
+  const sorted = sortChannels(active);
+  grid.innerHTML = sorted.map(ch => {
     const d = channelData[ch] || {};
     const cls = ['channel-card'];
     if (d.live) cls.push('live');
@@ -1928,12 +1417,11 @@ function renderAvatarView(grid, active) {
   });
 }
 
+// ✅ FIX: renderMultiView ahora reordena correctamente los players
 function renderMultiView(grid, active) {
   const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%230e0e10" width="100" height="100"/%3E%3Ctext x="50" y="55" text-anchor="middle" fill="%236d6d78" font-size="40"%3E?%3C/text%3E%3C/svg%3E';
   
-  active.forEach(ch => { 
-    if (!playerCards[ch]) createPlayerCard(ch, placeholder);
-  });
+  active.forEach(ch => { if (!playerCards[ch]) createPlayerCard(ch, placeholder); });
   
   Object.keys(playerCards).forEach(ch => {
     if (!active.includes(ch)) {
@@ -1943,9 +1431,10 @@ function renderMultiView(grid, active) {
     }
   });
   
+  // ✅ FIX: Re-ordenar usando appendChild, que mueve los elementos existentes
   const sorted = sortChannels(active);
-  sorted.forEach(ch => { 
-    if (playerCards[ch] && playerCards[ch].parentNode !== grid) {
+  sorted.forEach(ch => {
+    if (playerCards[ch]) {
       grid.appendChild(playerCards[ch]);
     }
   });
@@ -1993,16 +1482,12 @@ function createTwitchPlayer(ch, parent) {
   if (!container) return;
   try {
     const player = new Twitch.Player(containerId, {
-      channel: ch, 
-      parent: [parent],
-      width: '100%',
-      height: '100%',
-      muted: true,
-      autoplay: true
+      channel: ch, parent: [parent],
+      width: '100%', height: '100%',
+      muted: true, autoplay: true
     });
     player.setVolume(0.5);
     twitchPlayers[ch] = player;
-    
     player.addEventListener(Twitch.Player.PLAYING, () => updatePlayerCardsUI());
     player.addEventListener(Twitch.Player.PAUSE, () => updatePlayerCardsUI());
     player.addEventListener(Twitch.Player.ENDED, () => updatePlayerCardsUI());
@@ -2017,10 +1502,7 @@ function createTwitchPlayer(ch, parent) {
     });
     player.addEventListener(Twitch.Player.OFFLINE, () => updatePlayerCardsUI());
     player.addEventListener(Twitch.Player.READY, () => updatePlayerCardsUI());
-    
-  } catch (e) {
-    console.error(`Error creando player para ${ch}:`, e);
-  }
+  } catch (e) { console.error(`Error creando player para ${ch}:`, e); }
 }
 
 function updatePlayerCardsUI() {
@@ -2030,11 +1512,9 @@ function updatePlayerCardsUI() {
     const isMuted = channelMuted[ch] !== undefined ? channelMuted[ch] : globalMuted;
     const hasPlayer = !!twitchPlayers[ch];
     const hasAudio = d.live && !isMuted;
-    
     card.classList.toggle('live', !!d.live);
     card.classList.toggle('mentioned', !!d.mentioned);
     card.classList.toggle('has-audio', hasAudio);
-    
     const offlineOverlay = card.querySelector('[data-offline-overlay]');
     if (offlineOverlay) {
       offlineOverlay.style.display = d.live ? 'none' : 'flex';
@@ -2085,9 +1565,7 @@ function updateCardUI(ch) {
       card.classList.toggle('live', !!d.live);
       card.classList.toggle('mentioned', !!d.mentioned);
     }
-  } else {
-    updatePlayerCardsUI();
-  }
+  } else updatePlayerCardsUI();
 }
 
 function applyFilters() {
@@ -2121,10 +1599,7 @@ function togglePlayerMute(ch) {
 
 function destroyPlayer(ch) {
   if (twitchPlayers[ch]) {
-    try {
-      const el = document.getElementById(`player-${ch}`);
-      if (el) el.innerHTML = '';
-    } catch (e) {}
+    try { const el = document.getElementById(`player-${ch}`); if (el) el.innerHTML = ''; } catch (e) {}
     delete twitchPlayers[ch];
   }
 }
@@ -2189,10 +1664,7 @@ async function refreshAll() {
       if (channelData[ch].live && !chatSockets[ch]) connectChat(ch);
       else if (!channelData[ch].live && chatSockets[ch]) disconnectChat(ch);
     });
-  } catch (e) {
-    console.error(e);
-    setApiStatus('✗ Error: ' + e.message, 'error');
-  }
+  } catch (e) { console.error(e); setApiStatus('✗ Error: ' + e.message, 'error'); }
   clearTimeout(pollTimer);
   pollTimer = setTimeout(refreshAll, 30000);
 }
@@ -2201,10 +1673,7 @@ async function twitchFetch(ep) {
   const r = await fetch(`https://api.twitch.tv/helix/${ep}`, {
     headers: { 'Client-ID': $('clientId').value.trim(), 'Authorization': `Bearer ${accessToken}` }
   });
-  if (!r.ok) {
-    const txt = await r.text();
-    throw new Error(`${ep} → HTTP ${r.status}: ${txt.substring(0,80)}`);
-  }
+  if (!r.ok) { const txt = await r.text(); throw new Error(`${ep} → HTTP ${r.status}: ${txt.substring(0,80)}`); }
   return r.json();
 }
 
