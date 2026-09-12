@@ -123,7 +123,13 @@
   }
   .config-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: end; }
   .config-field { display: flex; flex-direction: column; gap: 0.3rem; }
-  .config-field label { font-size: 0.8rem; color: #adadb8; }
+  .config-field label { 
+    font-size: 0.8rem; 
+    color: #adadb8; 
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
   .config-field input, .config-field select {
     padding: 0.5rem 0.7rem;
     background: #0e0e10;
@@ -480,7 +486,7 @@
     border: 1px solid #2d2d33;
     border-radius: 12px;
     padding: 1.5rem;
-    max-width: 650px;
+    max-width: 750px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
@@ -593,6 +599,150 @@
     margin-top: 1rem;
   }
   .preview-box img { max-width: 100px; max-height: 100px; border-radius: 8px; }
+  
+  .info-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #2d2d33;
+    color: #bf94ff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .info-tag:hover { background: #9146ff; color: white; }
+  
+  .privacy-banner {
+    background: linear-gradient(135deg, #3d2d1f 0%, #4d2d1f 100%);
+    border: 1px solid #ff9900;
+    border-left: 4px solid #ff9900;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+  .privacy-banner .icon { font-size: 1.3rem; flex-shrink: 0; }
+  .privacy-banner .content {
+    flex: 1;
+    font-size: 0.85rem;
+    color: #ffd9a0;
+    line-height: 1.5;
+  }
+  .privacy-banner .content strong { color: #ffb347; }
+  .privacy-banner .content a { color: #ffcc80; text-decoration: underline; }
+  .privacy-banner .hide-btn {
+    background: transparent;
+    border: 1px solid #ff9900;
+    color: #ffd9a0;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .privacy-banner .hide-btn:hover { background: rgba(255, 153, 0, 0.2); }
+  .privacy-banner.hidden { display: none; }
+  
+  /* ✅ FIX: Clase base oculta + clase show la muestra */
+  .credentials-hidden { display: none; }
+  .credentials-hidden.show { display: block; }
+  
+  .help-steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+  }
+  .help-steps li {
+    counter-increment: step;
+    padding: 0.8rem 0.8rem 0.8rem 3rem;
+    margin-bottom: 0.5rem;
+    background: #0e0e10;
+    border-radius: 8px;
+    position: relative;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .help-steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background: #9146ff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .help-steps li code {
+    background: #2d2d33;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: #bf94ff;
+  }
+  .help-steps li a { color: #bf94ff; text-decoration: underline; }
+  .help-warning {
+    background: #3d1f1f;
+    border-left: 3px solid #eb0400;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #ffb3b3;
+    margin-top: 1rem;
+  }
+  
+  .help-tabs {
+    display: flex;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+    background: #0e0e10;
+    padding: 0.3rem;
+    border-radius: 8px;
+  }
+  .help-tab {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    background: transparent;
+    border: none;
+    color: #adadb8;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .help-tab:hover { background: #1f1f23; color: #efeff1; }
+  .help-tab.active { background: #9146ff; color: white; }
+  .help-tab-content { display: none; }
+  .help-tab-content.active { display: block; }
+  .help-recommendation {
+    background: linear-gradient(135deg, #1a4d2e 0%, #15703d 100%);
+    border: 1px solid #4ade80;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+  }
+  .help-recommendation .icon { font-size: 1.5rem; }
+  .help-recommendation .content { flex: 1; font-size: 0.9rem; color: #d1fae5; }
+  .help-recommendation .content strong { color: #4ade80; font-size: 1rem; }
 </style>
 </head>
 <body>
@@ -645,39 +795,64 @@
 <div class="header" id="header">
   <div class="container">
     <div class="config">
-      <div class="config-row">
-        <div class="config-field" style="flex:2">
-          <label>Client ID</label>
-          <input type="text" id="clientId" placeholder="tu_client_id" style="min-width:200px" />
+      <div class="privacy-banner" id="privacyBanner">
+        <div class="icon">🔒</div>
+        <div class="content">
+          <strong>Aviso de privacidad para streamers:</strong> Esta página muestra tus credenciales de Twitch en pantalla. 
+          Si vas a hacer stream, <strong>oculta esta sección antes de empezar</strong> usando el botón de abajo, 
+          o pulsa el botón ⚙ de la barra superior para colapsar todo el panel. 
+          Nunca muestres tu <strong>Client Secret</strong> en directo — cualquiera que lo vea podría acceder a tu app de Twitch.
         </div>
-        <div class="config-field" style="flex:2">
-          <label>Client Secret</label>
-          <input type="password" id="clientSecret" placeholder="tu_client_secret" style="min-width:200px" />
-        </div>
-        <div class="config-field" style="flex:1">
-          <label>Canal</label>
-          <input type="text" id="newChannel" placeholder="ej: ibai" />
-        </div>
-        <button id="addChannelBtn" disabled>➕ Añadir</button>
-        <button id="authBtn">🔑 Auth</button>
-        <button id="refreshBtn" class="secondary" disabled>🔄 Refrescar</button>
-        <button id="manageBtn" class="secondary">⚙ Gestionar</button>
+        <button class="hide-btn" id="hidePrivacyBtn">Ocultar aviso</button>
       </div>
-      <div class="status-bar">
-        <div class="status-item">
-          <span class="status-dot" id="tokenDot"></span>
-          <span id="tokenStatus">No autenticado</span>
+      
+      <div style="display:flex; gap:0.5rem; margin-bottom:0.8rem; align-items:center;">
+        <button id="toggleCredentialsBtn" class="secondary" style="padding:0.4rem 0.8rem; font-size:0.8rem;">🙈 Ocultar credenciales</button>
+        <span style="font-size:0.8rem; color:#adadb8;">Úsalo antes de hacer stream</span>
+      </div>
+      
+      <!-- ✅ FIX: Añadida la clase credentials-hidden -->
+      <div id="credentialsSection" class="credentials-hidden show">
+        <div class="config-row">
+          <div class="config-field" style="flex:2">
+            <label>
+              Client ID
+              <button class="info-tag" id="helpClientIdBtn" title="¿Cómo conseguir el Client ID?">ⓘ</button>
+            </label>
+            <input type="text" id="clientId" placeholder="tu_client_id_aqui" style="min-width:200px" />
+          </div>
+          <div class="config-field" style="flex:2">
+            <label>
+              Client Secret
+              <button class="info-tag" id="helpClientSecretBtn" title="¿Cómo conseguir el Client Secret?">ⓘ</button>
+            </label>
+            <input type="password" id="clientSecret" placeholder="tu_client_secret_aqui" style="min-width:200px" />
+          </div>
+          <div class="config-field" style="flex:1">
+            <label>Canal</label>
+            <input type="text" id="newChannel" placeholder="ej: kyerou" />
+          </div>
+          <button id="addChannelBtn" disabled>➕ Añadir</button>
+          <button id="authBtn">🔑 Auth</button>
+          <button id="refreshBtn" class="secondary" disabled>🔄 Refrescar</button>
+          <button id="manageBtn" class="secondary">⚙ Gestionar</button>
         </div>
-        <div class="status-item">
-          <span class="status-dot" id="apiDot"></span>
-          <span id="apiStatus">API inactiva</span>
-        </div>
-        <div class="status-item">
-          <span class="status-dot" id="chatDot"></span>
-          <span id="chatStatus">Chat inactivo</span>
-        </div>
-        <div class="status-item">
-          <span id="channelCount" class="counter-badge">0 canales</span>
+        <div class="status-bar">
+          <div class="status-item">
+            <span class="status-dot" id="tokenDot"></span>
+            <span id="tokenStatus">No autenticado</span>
+          </div>
+          <div class="status-item">
+            <span class="status-dot" id="apiDot"></span>
+            <span id="apiStatus">API inactiva</span>
+          </div>
+          <div class="status-item">
+            <span class="status-dot" id="chatDot"></span>
+            <span id="chatStatus">Chat inactivo</span>
+          </div>
+          <div class="status-item">
+            <span id="channelCount" class="counter-badge">0 canales</span>
+          </div>
         </div>
       </div>
     </div>
@@ -777,6 +952,122 @@
   </div>
 </div>
 
+<div id="helpModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="helpModalTitle">📘 Ayuda</h2>
+      <button class="close-btn" id="closeHelpBtn">×</button>
+    </div>
+    <div>
+      <div class="help-tabs">
+        <button class="help-tab active" data-tab="credentials">🔑 Credenciales</button>
+        <button class="help-tab" data-tab="hosting">🌐 Dónde alojar</button>
+      </div>
+      
+      <div class="help-tab-content active" id="tab-credentials">
+        <p style="color:#adadb8; font-size:0.9rem; margin-bottom:1rem;">
+          Sigue estos pasos para crear una app en Twitch y obtener tus credenciales:
+        </p>
+        <ol class="help-steps">
+          <li>
+            Ve a la consola de desarrolladores de Twitch:<br>
+            <a href="https://dev.twitch.tv/console/apps" target="_blank">dev.twitch.tv/console/apps</a>
+          </li>
+          <li>
+            Pulsa <strong>"Register Your Application"</strong> (Registrar tu aplicación).
+          </li>
+          <li>
+            Rellena los campos:<br>
+            • <strong>Name</strong>: el nombre que quieras (ej: "Mi Dashboard")<br>
+            • <strong>OAuth Redirect URLs</strong>: añade <code>http://localhost</code> y también la URL de tu hosting (ej: <code>https://tu-app.netlify.app</code>)<br>
+            • <strong>Category</strong>: selecciona <em>"Application Integration"</em>
+          </li>
+          <li>
+            Pulsa <strong>"Create"</strong> y luego en tu nueva app pulsa <strong>"Manage"</strong>.
+          </li>
+          <li>
+            Verás tu <strong>Client ID</strong> directamente. Para el <strong>Client Secret</strong>, pulsa <strong>"New Secret"</strong> y cópialo.
+          </li>
+          <li>
+            Pega ambos valores en los campos correspondientes de esta app y pulsa <strong>"🔑 Auth"</strong>.
+          </li>
+        </ol>
+        <div class="help-warning">
+          ⚠️ <strong>Importante:</strong> Si cambias de dominio (Netlify, GitHub Pages, etc.), 
+          recuerda añadir la nueva URL en <em>OAuth Redirect URLs</em> de tu app de Twitch, 
+          o los players de vídeo no cargarán.
+        </div>
+      </div>
+      
+      <div class="help-tab-content" id="tab-hosting">
+        <div class="help-recommendation">
+          <div class="icon">⭐</div>
+          <div class="content">
+            <strong>Recomendado: Netlify</strong><br>
+            Es la opción más rápida y sencilla. Solo arrastra tu archivo y listo en 30 segundos.
+          </div>
+        </div>
+        
+        <h3 style="margin-bottom:0.8rem; font-size:1rem;">🟣 Opción 1: Netlify (Recomendado)</h3>
+        <ol class="help-steps">
+          <li>
+            Crea una cuenta gratuita en <a href="https://app.netlify.com/signup" target="_blank">app.netlify.com</a>
+          </li>
+          <li>
+            Una vez dentro, verás un área que dice <strong>"Drag and drop your site folder here"</strong>
+          </li>
+          <li>
+            Crea una carpeta en tu PC y dentro pon tu archivo <code>index.html</code>
+          </li>
+          <li>
+            Arrastra esa carpeta al área de Netlify
+          </li>
+          <li>
+            En 30 segundos tendrás tu URL tipo <code>https://nombre-aleatorio.netlify.app</code>
+          </li>
+          <li>
+            <strong>Importante:</strong> Copia esa URL y añádela en <em>OAuth Redirect URLs</em> de tu app de Twitch (ver pestaña "Credenciales")
+          </li>
+        </ol>
+        
+        <h3 style="margin:1.5rem 0 0.8rem; font-size:1rem;">🔵 Opción 2: GitHub Pages</h3>
+        <ol class="help-steps">
+          <li>
+            Crea una cuenta en <a href="https://github.com/signup" target="_blank">github.com</a>
+          </li>
+          <li>
+            Pulsa el botón <strong>"+"</strong> arriba a la derecha → <strong>"New repository"</strong>
+          </li>
+          <li>
+            Ponle un nombre (ej: <code>twitch-dashboard</code>), marca <strong>"Public"</strong> y pulsa <strong>"Create repository"</strong>
+          </li>
+          <li>
+            Pulsa <strong>"uploading an existing file"</strong> y sube tu <code>index.html</code>
+          </li>
+          <li>
+            Ve a <strong>Settings → Pages</strong> (en el menú lateral izquierdo)
+          </li>
+          <li>
+            En "Source" selecciona <strong>"Deploy from a branch"</strong>, rama <code>main</code>, carpeta <code>/ (root)</code>
+          </li>
+          <li>
+            Guarda y espera 1-2 minutos. Tu URL será <code>https://tuusuario.github.io/twitch-dashboard/</code>
+          </li>
+          <li>
+            <strong>Importante:</strong> Añade esa URL en <em>OAuth Redirect URLs</em> de tu app de Twitch
+          </li>
+        </ol>
+        
+        <div class="help-warning">
+          💡 <strong>Consejo:</strong> Si solo vas a usar la app tú en tu PC, no necesitas hosting. 
+          Puedes abrir el <code>index.html</code> directamente en tu navegador, pero necesitarás un servidor local 
+          (como la extensión "Live Server" de VS Code) para que funcionen los players de Twitch.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="manageModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -800,7 +1091,7 @@
         <input type="file" id="importFileInput" accept=".txt,.json,.csv" style="display:none" />
       </div>
       <p class="ie-note">Pega canales (uno por línea o separados por comas):</p>
-      <textarea class="import-textarea" id="importTextarea" placeholder="ibai&#10;auronplay&#10;xqc"></textarea>
+      <textarea class="import-textarea" id="importTextarea" placeholder="kyerou&#10;auronplay&#10;xqc"></textarea>
       <div style="display:flex; gap:0.5rem;">
         <button id="importBtn" class="success">📥 Añadir</button>
         <button id="importReplaceBtn" class="danger">🔄 Reemplazar</button>
@@ -841,6 +1132,16 @@ $('soundEnabledToggle').checked = soundEnabled;
 $('muteAllToggle').checked = globalMuted;
 updateMuteLabel();
 
+if (localStorage.getItem('tw_privacy_hidden') === 'true') {
+  $('privacyBanner').classList.add('hidden');
+}
+
+// ✅ FIX: Inicialización correcta del estado de credenciales
+if (localStorage.getItem('tw_credentials_hidden') === 'true') {
+  $('credentialsSection').classList.remove('show');
+  $('toggleCredentialsBtn').textContent = '👁 Mostrar credenciales';
+}
+
 if (customConfig.title) $('customTitle').value = customConfig.title;
 if (customConfig.titleSize) $('customTitleSize').value = customConfig.titleSize;
 if (customConfig.logoSize) $('customLogoSize').value = customConfig.logoSize;
@@ -852,6 +1153,57 @@ if (customConfig.logo && customConfig.logo.startsWith('data:')) $('customLogo').
 if (customConfig.bgImage && customConfig.bgImage.startsWith('data:')) $('customBgImage').value = '[Archivo local]';
 
 applyCustomization();
+
+$('helpClientIdBtn').addEventListener('click', () => openHelpModal('credentials'));
+$('helpClientSecretBtn').addEventListener('click', () => openHelpModal('credentials'));
+$('closeHelpBtn').addEventListener('click', () => $('helpModal').classList.remove('active'));
+$('hidePrivacyBtn').addEventListener('click', () => {
+  $('privacyBanner').classList.add('hidden');
+  localStorage.setItem('tw_privacy_hidden', 'true');
+});
+
+document.querySelectorAll('.help-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.help-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.help-tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    $('tab-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ✅ FIX: Lógica simplificada y correcta
+$('toggleCredentialsBtn').addEventListener('click', () => {
+  const section = $('credentialsSection');
+  const btn = $('toggleCredentialsBtn');
+  
+  // Toggle de la clase 'show'
+  section.classList.toggle('show');
+  
+  const isNowHidden = !section.classList.contains('show');
+  
+  // Actualizar texto del botón
+  btn.textContent = isNowHidden ? '👁 Mostrar credenciales' : '🙈 Ocultar credenciales';
+  
+  // Guardar preferencia
+  localStorage.setItem('tw_credentials_hidden', isNowHidden);
+});
+
+function openHelpModal(tab) {
+  if (tab === 'credentials') {
+    $('helpModalTitle').textContent = '📘 Ayuda: Credenciales de Twitch';
+  } else {
+    $('helpModalTitle').textContent = '🌐 Ayuda: Dónde alojar la app';
+  }
+  
+  document.querySelectorAll('.help-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === tab);
+  });
+  document.querySelectorAll('.help-tab-content').forEach(c => {
+    c.classList.toggle('active', c.id === 'tab-' + tab);
+  });
+  
+  $('helpModal').classList.add('active');
+}
 
 $('togglePanelBtn').addEventListener('click', () => {
   $('header').classList.toggle('collapsed');
@@ -1394,6 +1746,7 @@ async function authenticate() {
     $('addChannelBtn').disabled = false;
     $('refreshBtn').disabled = false;
     if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
+    showToast('✅ Autenticado. Considera ocultar las credenciales antes de hacer stream.');
   } catch (e) {
     setTokenStatus('✗ Error', 'error');
     alert('Error: ' + e.message);
@@ -1543,18 +1896,9 @@ function createTwitchPlayer(ch, parent) {
     player.setVolume(0.5);
     twitchPlayers[ch] = player;
     
-    player.addEventListener(Twitch.Player.PLAYING, () => {
-      updatePlayerCardsUI();
-    });
-    
-    player.addEventListener(Twitch.Player.PAUSE, () => {
-      updatePlayerCardsUI();
-    });
-    
-    player.addEventListener(Twitch.Player.ENDED, () => {
-      updatePlayerCardsUI();
-    });
-    
+    player.addEventListener(Twitch.Player.PLAYING, () => updatePlayerCardsUI());
+    player.addEventListener(Twitch.Player.PAUSE, () => updatePlayerCardsUI());
+    player.addEventListener(Twitch.Player.ENDED, () => updatePlayerCardsUI());
     player.addEventListener(Twitch.Player.ONLINE, () => {
       try {
         player.play();
@@ -1564,14 +1908,8 @@ function createTwitchPlayer(ch, parent) {
       } catch (e) {}
       updatePlayerCardsUI();
     });
-    
-    player.addEventListener(Twitch.Player.OFFLINE, () => {
-      updatePlayerCardsUI();
-    });
-    
-    player.addEventListener(Twitch.Player.READY, () => {
-      updatePlayerCardsUI();
-    });
+    player.addEventListener(Twitch.Player.OFFLINE, () => updatePlayerCardsUI());
+    player.addEventListener(Twitch.Player.READY, () => updatePlayerCardsUI());
     
   } catch (e) {
     console.error(`Error creando player para ${ch}:`, e);
