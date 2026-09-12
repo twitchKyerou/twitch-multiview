@@ -181,6 +181,25 @@ button.success:hover:not(:disabled) { background: #15703d; }
 .sound-row input[type="text"]:focus { outline: none; border-color: #ffd700; }
 .sound-label { font-size: 0.8rem; color: #adadb8; }
 .sound-status { font-size: 0.75rem; color: #4ade80; }
+/* ✅ Botón inferior para ocultar configuración */
+.hide-config-bottom {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #2d2d33;
+}
+.hide-config-bottom button {
+  background: linear-gradient(135deg, #9146ff, #772ce8);
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(145, 70, 255, 0.3);
+}
+.hide-config-bottom button:hover {
+  background: linear-gradient(135deg, #772ce8, #6420c4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(145, 70, 255, 0.4);
+}
 </style>
 </head>
 <body>
@@ -337,6 +356,10 @@ button.success:hover:not(:disabled) { background: #15703d; }
         </div>
       </div>
     </div>
+    <!-- ✅ NUEVO: Botón inferior para ocultar configuración -->
+    <div class="hide-config-bottom">
+      <button id="hideConfigBottomBtn">✕ Ocultar configuración</button>
+    </div>
   </div>
 </div>
 <div class="grid-container">
@@ -469,12 +492,39 @@ $('toggleCredentialsBtn').addEventListener('click', () => {
   localStorage.setItem('tw_credentials_hidden', isNowHidden);
 });
 
-function openHelpModal() { $('helpModal').classList.add('active'); }
+// ✅ NUEVA FUNCIÓN: Ocultar panel completo con scroll suave
+function hideConfigPanel() {
+  $('header').classList.add('collapsed');
+  $('togglePanelBtn').textContent = '⚙';
+  // Scroll suave hasta el inicio de la cuadrícula (justo debajo de la barra superior fija)
+  setTimeout(() => {
+    const gridContainer = document.querySelector('.grid-container');
+    if (gridContainer) {
+      const topBarHeight = document.querySelector('.top-bar').offsetHeight;
+      const targetY = gridContainer.offsetTop - topBarHeight;
+      window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+    }
+  }, 100);
+}
 
+// ✅ Botón superior (toggle)
 $('togglePanelBtn').addEventListener('click', () => {
+  const isCollapsed = $('header').classList.contains('collapsed');
   $('header').classList.toggle('collapsed');
-  $('togglePanelBtn').textContent = $('header').classList.contains('collapsed') ? '⚙' : '✕';
+  $('togglePanelBtn').textContent = isCollapsed ? '✕' : '⚙';
+  
+  // Si estamos mostrando el panel, sube arriba automáticamente
+  if (isCollapsed) {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  }
 });
+
+// ✅ NUEVO: Botón inferior para ocultar configuración
+$('hideConfigBottomBtn').addEventListener('click', hideConfigPanel);
+
+function openHelpModal() { $('helpModal').classList.add('active'); }
 
 $('authBtn').addEventListener('click', authenticate);
 $('refreshBtn').addEventListener('click', () => { clearTimeout(pollTimer); refreshAll(); });
@@ -499,7 +549,6 @@ $('quickAddInput').addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); quickAddChannels(); }
 });
 
-// Sonido personalizado
 $('alertSoundUrl').addEventListener('change', e => {
   const url = e.target.value.trim();
   if (url) {
