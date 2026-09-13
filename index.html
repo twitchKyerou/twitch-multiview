@@ -15,19 +15,17 @@ body {
   flex-direction: column;
   transition: background 0.3s;
 }
-/* ✅ Fondo predeterminado: contenedores transparentes */
+/* ✅ Fondo predeterminado: solo body, contenedores mantienen fondo oscuro */
 body.has-bg-image {
-  background: url('https://i.ibb.co/cStFhx29/Fondo-multistream.jpg') center/cover fixed no-repeat;
+  background: url('https://i.ibb.co/cStFhx29/Fondo-multistream.jpg') center/cover fixed no-repeat !important;
 }
-body.has-bg-image .top-bar,
-body.has-bg-image .header,
-body.has-bg-image .grid-container,
-body.has-bg-image .channels-panel,
-body.has-bg-image .config,
-body.has-bg-image .keywords-panel,
-body.has-bg-image .customize-panel { 
-  background: transparent !important; 
-  backdrop-filter: none !important;
+body.has-bg-image::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .top-bar {
@@ -239,9 +237,20 @@ button.success:hover:not(:disabled) { background: #15703d; }
 .channel-card.mentioned { border-color: #ffd700 !important; box-shadow: 0 0 0 3px #ffd700, 0 0 30px rgba(255, 215, 0, 0.6); animation: alertPulse 1s infinite; z-index: 10; }
 .channel-card.mentioned::after { content: "⚠ MENCIÓN"; position: absolute; top: 8px; left: 8px; background: #ffd700; color: #1a1a1a; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 10px; z-index: 2; }
 @keyframes alertPulse { 0%, 100% { box-shadow: 0 0 0 3px #ffd700, 0 0 30px rgba(255, 215, 0, 0.6); } 50% { box-shadow: 0 0 0 5px #ffaa00, 0 0 50px rgba(255, 215, 0, 0.9); } }
+/* ✅ Avatar destacado cuando se abre su video lateral */
+.channel-card.sidebar-active {
+  border-color: #00d26a !important;
+  box-shadow: 0 0 0 3px rgba(0, 210, 106, 0.6), 0 0 30px rgba(0, 210, 106, 0.4);
+  animation: sidebarPulse 2s infinite;
+}
+@keyframes sidebarPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(0, 210, 106, 0.6), 0 0 30px rgba(0, 210, 106, 0.4); }
+  50% { box-shadow: 0 0 0 5px rgba(0, 210, 106, 0.8), 0 0 40px rgba(0, 210, 106, 0.6); }
+}
 .avatar { width: 100%; aspect-ratio: 1; border-radius: 50%; object-fit: cover; margin-bottom: 0.8rem; border: 3px solid #2d2d33; background: #0e0e10; }
 .channel-card.live .avatar { border-color: #eb0400; }
 .channel-card.mentioned .avatar { border-color: #ffd700 !important; }
+.channel-card.sidebar-active .avatar { border-color: #00d26a !important; }
 .channel-name { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .channel-stats { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; }
 .stat { display: flex; justify-content: space-between; align-items: center; }
@@ -420,7 +429,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
 <div class="top-bar">
   <div class="top-bar-inner">
     <div class="app-title" id="appTitle">
-      <a href="https://www.twitch.tv/kyerou" target="_blank">🎮 Twitch Multi-View by KYEROU</a>
+      <a href="https://www.twitch.tv/kyerou" target="_blank">🎮 MultiView by KYEROU</a>
     </div>
     <div class="top-bar-controls">
       <span class="controls-label">Vista:</span>
@@ -920,7 +929,7 @@ function resetCustomConfig() {
 }
 function applyCustomization() {
   const t = $('appTitle');
-  const dt = customConfig.title || '🎮 Twitch Multi-View by KYEROU';
+  const dt = customConfig.title || '🎮 MultiView by KYEROU';
   const ts = customConfig.titleSize || 24;
   const ls = customConfig.logoSize || 32;
   t.style.fontSize = ts + 'px';
@@ -1000,9 +1009,9 @@ function playAlertSound() {
   if (alertAudio) { try { alertAudio.currentTime = 0; alertAudio.volume = alertVolume; alertAudio.play().catch(() => {}); } catch(e) { playDefaultSound(); } }
   else playDefaultSound();
 }
-function playDefaultSound() { try { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); const n = audioCtx.currentTime; const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.type = 'sine'; o.frequency.setValueAtTime(880, n); g.gain.setValueAtTime(0, n); g.gain.linearRampToValueAtTime(0.3, n + 0.01); g.gain.exponentialRampToValueAtTime(0.01, n + 0.15); o.start(n); o.stop(n + 0.15); const o2 = audioCtx.createOscillator(); const g2 = audioCtx.createGain(); o2.connect(g2); g2.connect(audioCtx.destination); o2.type = 'sine'; o2.frequency.setValueAtTime(1320, n + 0.18); g2.gain.setValueAtTime(0, n + 0.18); g2.gain.linearRampToValueAtTime(0.3, n + 0.19); g2.gain.exponentialRampToValueAtTime(0.01, n + 0.35); o2.start(n + 0.18); o2.stop(n + 0.35); } catch(e) {} }
+function playDefaultSound() { try { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); const n = audioCtx.currentTime; const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.type = 'sine'; o.frequency.setValueAtTime(880, n); g.gain.setValueAtTime(0, n); g.gain.linearRampToValueAtTime(0.3, n + 0.01); g.gain.exponentialRampToValueAtTime(0.01, n + 0.15); o.start(n); o.stop(n + 0.15); const o2 = audioCtx.createOscillator(); const g2 = audioCtx.createGain(); o2.connect(g2); g2.connect(audioCtx.destination); o2.type = 'sine'; o2.frequency.setValueAtTime(1320, n + 0.18); g2.gain.setValueAtTime(0, n + 0.18); g2.gain.linearRampToValueAtTime(0.3, n + 0.19); g2.gain.exponentialRampToValueAtTime(0.01, n + 0.35); o2.start(n + 0.18); o2.stop(n + 0.35); } catch (e) {} }
 function checkMention(channel, message, userId) { if (!alertsEnabled || highlightWords.length === 0) return; if (channelData[channel]?.broadcasterId !== userId) return; const n = Date.now(); if (alertCooldowns[channel] && n - alertCooldowns[channel] < 30000) return; const m = message.toLowerCase(); const matched = highlightWords.find(w => m.includes(w)); if (matched) { triggerAlert(channel, matched, message); alertCooldowns[channel] = n; } }
-function triggerAlert(channel, word, fullMessage) { const d = channelData[channel]; if (!d) return; d.mentioned = true; d.mentionedWord = word; d.mentionedAt = Date.now(); playAlertSound(); if ('Notification' in window && Notification.permission === 'granted') new Notification(`⚠ ${channel}: "${word}"`, { body: fullMessage.substring(0, 100), icon: d.avatar || undefined }); setTimeout(() => { if (channelData[channel] && Date.now() - channelData[channel].mentionedAt >= 59000) { channelData[channel].mentioned = false; updateCardUI(channel); } }, 60000); updateCardUI(channel); }
+function triggerAlert(channel, word, fullMessage) { const d = channelData[channel]; if (!d) return; d.mentioned = true; d.mentionedWord = word; d.mentionedAt = Date.now(); playAlertSound(); if ('Notification' in window && Notification.permission === 'granted') new Notification(`⚠ ${channel}: "${word}"`, { body: fullMessage.substring(0, 100), icon: data.avatar || undefined }); setTimeout(() => { if (channelData[channel] && Date.now() - channelData[channel].mentionedAt >= 59000) { channelData[channel].mentioned = false; updateCardUI(channel); } }, 60000); updateCardUI(channel); }
 function dismissAlert(ch) { if (channelData[ch]) { channelData[ch].mentioned = false; updateCardUI(ch); } }
 function setFilter(f) { currentFilter = f; localStorage.setItem('tw_filter', f); updateFilterButtons(); applyFilters(); }
 function updateFilterButtons() { $('filterAllBtn').className = currentFilter === 'all' ? 'active' : 'secondary'; $('filterLiveBtn').className = currentFilter === 'live' ? 'active' : 'secondary'; $('filterAlertBtn').className = currentFilter === 'alert' ? 'active' : 'secondary'; }
@@ -1029,6 +1038,7 @@ function renderAvatarView(grid, active) {
   const sorted = sortChannels(active);
   grid.innerHTML = sorted.map(ch => {
     const d = channelData[ch] || {}; const cls = ['channel-card']; if (d.live) cls.push('live'); if (d.mentioned) cls.push('mentioned');
+    if (sidebarChannel === ch) cls.push('sidebar-active');
     return `<div class="${cls.join(' ')}" data-channel="${esc(ch)}">
       <img class="avatar" src="${d.avatar || ph}" alt="${esc(ch)}" loading="lazy" />
       <div class="channel-name">${esc(ch)}</div>
@@ -1107,7 +1117,7 @@ function updatePlayerCardsUI() {
   });
 }
 function updateCardUI(ch) { if (currentView === 'avatar') { const c = document.querySelector(`.channel-card[data-channel="${ch}"]`); if (c) { const d = channelData[ch] || {}; c.classList.toggle('live', !!d.live); c.classList.toggle('mentioned', !!d.mentioned); } } else updatePlayerCardsUI(); }
-function applyFilters() { const a = getActiveChannels(); let f = a; if (currentFilter === 'live') f = a.filter(c => channelData[c]?.live); else if (currentFilter === 'alert') f = a.filter(c => channelData[c]?.mentioned); if (currentView === 'avatar') { $('grid').querySelectorAll('.channel-card').forEach(c => { c.style.display = f.includes(c.dataset.channel) ? '' : 'none'; }); } else Object.keys(playerCards).forEach(ch => { playerCards[ch].classList.toggle('hidden', !f.includes(ch)); }); }
+function applyFilters() { const a = getActiveChannels(); let f = a; if (currentFilter === 'live') f = a.filter(c => channelData[c]?.live); else if (currentFilter === 'alert') f = a.filter(c => channelData[c]?.mentioned); if (currentView === 'avatar') { $('grid').querySelectorAll('.channel-card').forEach(c => { c.style.display = f.includes(c.dataset.channel) ? '' : 'none'; }); } else { Object.keys(playerCards).forEach(ch => { playerCards[ch].classList.toggle('hidden', !f.includes(ch)); }); } }
 function togglePlayerMute(ch) { const p = twitchPlayers[ch]; if (!p) return; try { const m = p.getMuted(); p.setMuted(!m); channelMuted[ch] = !m; updatePlayerCardsUI(); } catch(e) {} }
 function destroyPlayer(ch) { if (twitchPlayers[ch]) { try { const el = document.getElementById(`player-${ch}`); if (el) el.innerHTML = ''; } catch(e) {} delete twitchPlayers[ch]; } }
 function destroyAllPlayers() { Object.keys(twitchPlayers).forEach(ch => destroyPlayer(ch)); Object.keys(playerCards).forEach(ch => { if (playerCards[ch] && playerCards[ch].parentNode) playerCards[ch].remove(); delete playerCards[ch]; }); if (playerObserver) playerObserver.disconnect(); }
@@ -1126,6 +1136,15 @@ function openPlayerSidebar(ch) {
   $('sidebarInfo').innerHTML = `<div class="sidebar-info-item"><div class="sidebar-info-label">Estado</div><div class="sidebar-info-value live">🔴 EN VIVO</div></div><div class="sidebar-info-item"><div class="sidebar-info-label">Viewers</div><div class="sidebar-info-value viewers">${(d.viewers||0).toLocaleString()}</div></div>${d.title ? `<div class="sidebar-info-item"><div class="sidebar-info-label">Título</div><div class="sidebar-info-value">${esc(d.title)}</div></div>` : ''}${d.game ? `<div class="sidebar-info-item"><div class="sidebar-info-label">Juego</div><div class="sidebar-info-value">${esc(d.game)}</div></div>` : ''}<div class="sidebar-info-item"><div class="sidebar-info-label">Enlace</div><div class="sidebar-info-value"><a href="https://twitch.tv/${esc(ch)}" target="_blank" style="color:#9146ff;">twitch.tv/${esc(ch)} ↗</a></div></div>`;
   $('playerSidebar').classList.add('open');
   $('gridContainer').classList.add('sidebar-open');
+  // ✅ Destacar el avatar correspondiente
+  if (currentView === 'avatar') {
+    document.querySelectorAll('.channel-card').forEach(c => c.classList.remove('sidebar-active'));
+    const targetCard = document.querySelector(`.channel-card[data-channel="${ch}"]`);
+    if (targetCard) {
+      targetCard.classList.add('sidebar-active');
+      targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
 }
 
 function closePlayerSidebar() {
@@ -1134,6 +1153,10 @@ function closePlayerSidebar() {
   $('sidebarPlayer').innerHTML = '';
   sidebarPlayerInstance = null;
   sidebarChannel = null;
+  // ✅ Quitar destaque del avatar
+  if (currentView === 'avatar') {
+    document.querySelectorAll('.channel-card').forEach(c => c.classList.remove('sidebar-active'));
+  }
 }
 
 async function refreshAll() {
