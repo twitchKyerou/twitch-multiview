@@ -106,6 +106,8 @@ button.success:hover:not(:disabled) { background: #15703d; }
 .player-card.live { border-color: #eb0400; }
 .player-card.has-audio { border-color: #00d26a !important; box-shadow: 0 0 0 3px rgba(0, 210, 106, 0.4), 0 0 20px rgba(0, 210, 106, 0.3); }
 .player-card.has-audio::before { content: "🔊 AUDIO"; position: absolute; top: 8px; right: 50px; background: #00d26a; color: #0e0e10; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 8px; z-index: 6; pointer-events: none; }
+.player-card.audio-only { border-color: #fbbf24 !important; }
+.player-card.audio-only::after { content: "🎵 SOLO AUDIO"; position: absolute; bottom: 8px; left: 8px; background: #fbbf24; color: #0e0e10; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 8px; z-index: 6; pointer-events: none; }
 .player-card.mentioned { border-color: #ffd700 !important; box-shadow: 0 0 0 3px #ffd700, 0 0 30px rgba(255, 215, 0, 0.6); animation: alertPulse 1s infinite; }
 .player-card.hidden { display: none; }
 .player-card .player-container { width: 100%; height: 100%; }
@@ -123,6 +125,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
 .player-controls button { width: 32px; height: 32px; padding: 0; border-radius: 50%; font-size: 0.9rem; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); border: none; color: white; cursor: pointer; }
 .player-controls button:hover { background: rgba(145, 70, 255, 0.8); }
 .player-controls button.muted { background: rgba(235, 4, 0, 0.6); }
+.player-controls button.audio-only-active { background: rgba(251, 191, 36, 0.8); }
 .player-badge-live { position: absolute; top: 8px; right: 8px; background: #eb0400; color: white; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 8px; animation: pulse 1.5s infinite; z-index: 6; }
 .player-badge-mention { position: absolute; top: 8px; left: 8px; background: #ffd700; color: #1a1a1a; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 8px; z-index: 6; }
 .empty-state { text-align: center; padding: 3rem; color: #6d6d78; grid-column: 1 / -1; }
@@ -217,6 +220,15 @@ button.success:hover:not(:disabled) { background: #15703d; }
         <button data-layout="9">9</button>
         <button data-layout="16">16</button>
       </div>
+      <span class="controls-label">Calidad:</span>
+      <select id="qualitySelect" style="padding:0.4rem 0.6rem; background:#0e0e10; border:1px solid #3a3a44; border-radius:6px; color:#efeff1; font-size:0.85rem;">
+        <option value="auto">Auto</option>
+        <option value="160p30">160p (muy baja)</option>
+        <option value="360p30">360p (baja)</option>
+        <option value="480p30" selected>480p (media)</option>
+        <option value="720p30">720p (alta)</option>
+        <option value="1080p60">1080p (muy alta)</option>
+      </select>
       <span class="controls-label">Filtrar:</span>
       <div class="filter-toggle">
         <button id="filterAllBtn" class="active">Todos</button>
@@ -236,6 +248,11 @@ button.success:hover:not(:disabled) { background: #15703d; }
         <input type="checkbox" id="muteAllToggle" />
         <span class="toggle-switch"></span>
         <span id="muteAllLabel">🔇 Silenciar todo</span>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="pauseOffscreenToggle" checked />
+        <span class="toggle-switch"></span>
+        <span>Pausar fuera de pantalla</span>
       </label>
       <button class="toggle-panel-btn" id="togglePanelBtn" title="Mostrar/Ocultar configuración">⚙</button>
     </div>
@@ -480,6 +497,10 @@ let alertAudio = null;
 let scrollPositionBeforeConfig = 0;
 let useDefaultBg = false;
 let alertVolume = 0.5;
+let selectedQuality = '480p30';
+let pauseOffscreen = true;
+let audioOnlyChannels = new Set();
+let playerObserver = null;
 
 try {
   channels = JSON.parse(localStorage.getItem('tw_channels') || '[]');
@@ -498,6 +519,9 @@ try {
   
   const savedVol = localStorage.getItem('tw_alert_volume');
   alertVolume = savedVol !== null ? parseFloat(savedVol) : 0.5;
+  
+  selectedQuality = localStorage.getItem('tw_quality') || '480p30';
+  pauseOffscreen = localStorage.getItem('tw_pause_offscreen') !== 'false';
 } catch (e) {
   console.error("Error cargando configuración:", e);
 }
@@ -518,6 +542,8 @@ $('muteAllToggle').checked = globalMuted;
 $('defaultBgToggle').checked = useDefaultBg;
 $('alertVolume').value = alertVolume;
 $('volumeStatus').textContent = Math.round(alertVolume * 100) + '%';
+$('qualitySelect').value = selectedQuality;
+$('pauseOffscreenToggle').checked = pauseOffscreen;
 
 if (customAlertSound && !customAlertSound.startsWith('data:')) $('alertSoundUrl').value = customAlertSound;
 updateMuteLabel();
@@ -592,6 +618,31 @@ $('alertVolume').addEventListener('input', e => {
   localStorage.setItem('tw_alert_volume', alertVolume);
   $('volumeStatus').textContent = Math.round(alertVolume * 100) + '%';
   if (alertAudio) alertAudio.volume = alertVolume;
+});
+
+$('qualitySelect').addEventListener('change', e => {
+  selectedQuality = e.target.value;
+  localStorage.setItem('tw_quality', selectedQuality);
+  applyQualityToAllPlayers();
+  showToast(`✅ Calidad cambiada a ${selectedQuality === 'auto' ? 'Auto' : selectedQuality}`);
+});
+
+$('pauseOffscreenToggle').addEventListener('change', e => {
+  pauseOffscreen = e.target.checked;
+  localStorage.setItem('tw_pause_offscreen', pauseOffscreen);
+  if (pauseOffscreen) {
+    setupPlayerObserver();
+  } else {
+    if (playerObserver) {
+      playerObserver.disconnect();
+      playerObserver = null;
+    }
+    Object.keys(twitchPlayers).forEach(ch => {
+      if (twitchPlayers[ch] && !audioOnlyChannels.has(ch)) {
+        try { twitchPlayers[ch].play(); } catch(e) {}
+      }
+    });
+  }
 });
 
 function openHelpModal() { $('helpModal').classList.add('active'); }
@@ -1203,6 +1254,7 @@ function renderMultiView(grid, active) {
     active.forEach(ch => { const d = channelData[ch]; if (d?.live && !twitchPlayers[ch]) createTwitchPlayer(ch, parent); });
   }
   updatePlayerCardsUI();
+  if (pauseOffscreen) setupPlayerObserver();
 }
 
 function createPlayerCard(ch, placeholder) {
@@ -1211,10 +1263,11 @@ function createPlayerCard(ch, placeholder) {
   card.className = 'player-card';
   card.dataset.channel = ch;
   const isMuted = channelMuted[ch] !== undefined ? channelMuted[ch] : globalMuted;
-  card.innerHTML = `<div class="player-container" id="player-${esc(ch)}"></div>
+  const isAudioOnly = audioOnlyChannels.has(ch);
+  card.innerHTML = `<div class="player-container" id="player-${ch}"></div>
     <div class="player-offline" data-offline-overlay><img src="${d.avatar || placeholder}" alt="${esc(ch)}" /><div class="name">${esc(ch)}</div><div class="status">Offline</div></div>
     <div class="player-overlay"><div class="player-info"><div class="name">${esc(ch)}</div><div class="viewers" data-viewers style="display:${d.live ? '' : 'none'}">${(d.viewers||0).toLocaleString()} viewers</div></div>
-    <div class="player-controls"><button data-mute-btn onclick="event.stopPropagation(); togglePlayerMute('${esc(ch)}')" class="${isMuted ? 'muted' : ''}" title="${isMuted ? 'Activar audio' : 'Silenciar'}" style="display:${d.live ? '' : 'none'}">${isMuted ? '🔇' : '🔊'}</button><button onclick="event.stopPropagation(); window.open('https://twitch.tv/${esc(ch)}','_blank')" title="Abrir en Twitch">↗</button></div></div>`;
+    <div class="player-controls"><button data-mute-btn onclick="event.stopPropagation(); togglePlayerMute('${esc(ch)}')" class="${isMuted ? 'muted' : ''}" title="${isMuted ? 'Activar audio' : 'Silenciar'}" style="display:${d.live ? '' : 'none'}">${isMuted ? '🔇' : '🔊'}</button><button data-audio-only-btn onclick="event.stopPropagation(); toggleAudioOnly('${esc(ch)}')" class="${isAudioOnly ? 'audio-only-active' : ''}" title="Modo solo audio">🎵</button><button onclick="event.stopPropagation(); window.open('https://twitch.tv/${esc(ch)}','_blank')" title="Abrir en Twitch">↗</button></div></div>`;
   playerCards[ch] = card;
 }
 
@@ -1223,16 +1276,97 @@ function createTwitchPlayer(ch, parent) {
   const container = document.getElementById(containerId);
   if (!container) return;
   try {
-    const player = new Twitch.Player(containerId, { channel: ch, parent: [parent], width: '100%', height: '100%', muted: true, autoplay: true });
+    const isMuted = channelMuted[ch] !== undefined ? channelMuted[ch] : globalMuted;
+    const player = new Twitch.Player(containerId, { channel: ch, parent: [parent], width: '100%', height: '100%', muted: isMuted, autoplay: true });
     player.setVolume(0.5);
     twitchPlayers[ch] = player;
+    
     player.addEventListener(Twitch.Player.PLAYING, () => updatePlayerCardsUI());
     player.addEventListener(Twitch.Player.PAUSE, () => updatePlayerCardsUI());
     player.addEventListener(Twitch.Player.ENDED, () => updatePlayerCardsUI());
-    player.addEventListener(Twitch.Player.ONLINE, () => { try { player.play(); const sm = channelMuted[ch] !== undefined ? channelMuted[ch] : globalMuted; player.setMuted(sm); channelMuted[ch] = sm; } catch (e) {} updatePlayerCardsUI(); });
+    player.addEventListener(Twitch.Player.ONLINE, () => {
+      try {
+        player.play();
+        const sm = channelMuted[ch] !== undefined ? channelMuted[ch] : globalMuted;
+        player.setMuted(sm);
+        applyQualityToPlayer(ch);
+      } catch (e) {}
+      updatePlayerCardsUI();
+    });
     player.addEventListener(Twitch.Player.OFFLINE, () => updatePlayerCardsUI());
-    player.addEventListener(Twitch.Player.READY, () => updatePlayerCardsUI());
+    player.addEventListener(Twitch.Player.READY, () => {
+      applyQualityToPlayer(ch);
+      updatePlayerCardsUI();
+    });
   } catch (e) { console.error(`Error creando player para ${ch}:`, e); }
+}
+
+function applyQualityToPlayer(ch) {
+  const player = twitchPlayers[ch];
+  if (!player) return;
+  try {
+    if (selectedQuality === 'auto') {
+      player.setQuality('chunked');
+    } else {
+      player.setQuality(selectedQuality);
+    }
+  } catch (e) {
+    console.log(`No se pudo aplicar calidad ${selectedQuality} a ${ch}`);
+  }
+}
+
+function applyQualityToAllPlayers() {
+  Object.keys(twitchPlayers).forEach(ch => {
+    applyQualityToPlayer(ch);
+  });
+}
+
+function toggleAudioOnly(ch) {
+  const player = twitchPlayers[ch];
+  if (!player) return;
+  
+  if (audioOnlyChannels.has(ch)) {
+    audioOnlyChannels.delete(ch);
+    try {
+      const card = playerCards[ch];
+      if (card) card.classList.remove('audio-only');
+      player.setMuted(channelMuted[ch] || globalMuted);
+    } catch (e) {}
+  } else {
+    audioOnlyChannels.add(ch);
+    try {
+      const card = playerCards[ch];
+      if (card) card.classList.add('audio-only');
+      player.setMuted(false);
+      player.setVolume(1);
+    } catch (e) {}
+  }
+  updatePlayerCardsUI();
+}
+
+function setupPlayerObserver() {
+  if (playerObserver) playerObserver.disconnect();
+  
+  playerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const ch = entry.target.dataset.channel;
+      const player = twitchPlayers[ch];
+      if (!player || audioOnlyChannels.has(ch)) return;
+      
+      if (entry.isIntersecting) {
+        try { player.play(); } catch(e) {}
+      } else {
+        try { player.pause(); } catch(e) {}
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  Object.keys(playerCards).forEach(ch => {
+    const card = playerCards[ch];
+    if (card && twitchPlayers[ch]) {
+      playerObserver.observe(card);
+    }
+  });
 }
 
 function updatePlayerCardsUI() {
@@ -1242,19 +1376,32 @@ function updatePlayerCardsUI() {
     const isMuted = channelMuted[ch] !== undefined ? channelMuted[ch] : globalMuted;
     const hasPlayer = !!twitchPlayers[ch];
     const hasAudio = d.live && !isMuted;
+    const isAudioOnly = audioOnlyChannels.has(ch);
     card.classList.toggle('live', !!d.live);
     card.classList.toggle('mentioned', !!d.mentioned);
-    card.classList.toggle('has-audio', hasAudio);
+    card.classList.toggle('has-audio', hasAudio && !isAudioOnly);
+    card.classList.toggle('audio-only', isAudioOnly);
     const offlineOverlay = card.querySelector('[data-offline-overlay]');
-    if (offlineOverlay) { offlineOverlay.style.display = d.live ? 'none' : 'flex'; const img = offlineOverlay.querySelector('img'); if (img && d.avatar && img.src !== d.avatar) img.src = d.avatar; }
+    if (offlineOverlay) { offlineOverlay.style.display = d.live ? 'none' : 'flex'; }
     const muteBtn = card.querySelector('[data-mute-btn]');
-    if (muteBtn) { muteBtn.style.display = d.live ? '' : 'none'; if (d.live) { muteBtn.className = isMuted ? 'muted' : ''; muteBtn.textContent = isMuted ? '🔇' : '🔊'; muteBtn.title = isMuted ? 'Activar audio' : 'Silenciar'; } }
+    if (muteBtn) {
+      muteBtn.style.display = d.live ? '' : 'none';
+      if (d.live) {
+        muteBtn.className = isMuted ? 'muted' : '';
+        muteBtn.textContent = isMuted ? '🔇' : '🔊';
+        muteBtn.title = isMuted ? 'Activar audio' : 'Silenciar';
+      }
+    }
+    const audioOnlyBtn = card.querySelector('[data-audio-only-btn]');
+    if (audioOnlyBtn) {
+      audioOnlyBtn.className = isAudioOnly ? 'audio-only-active' : '';
+    }
     const viewersEl = card.querySelector('[data-viewers]');
     if (viewersEl) { viewersEl.style.display = d.live ? '' : 'none'; if (d.live) viewersEl.textContent = `${(d.viewers||0).toLocaleString()} viewers`; }
     const mentionBadge = card.querySelector('.player-badge-mention');
     if (d.mentioned && !mentionBadge) { const badge = document.createElement('div'); badge.className = 'player-badge-mention'; badge.textContent = '⚠ MENCIÓN'; card.appendChild(badge); } else if (!d.mentioned && mentionBadge) mentionBadge.remove();
     const liveBadge = card.querySelector('.player-badge-live');
-    if (d.live && !liveBadge) { const badge = document.createElement('div'); badge.className = 'player-badge-live'; badge.textContent = '● LIVE'; card.appendChild(badge); } else if (!d.live && liveBadge) liveBadge.remove();
+    if (d.live && !liveBadge) { const badge = document.createElement('div'); badge.className = 'player-badge-live'; badge.textContent = '● LIVE'; card.appendChild(badge); } else if (!d.live && liveBadge) badge.remove();
     if (d.live && !hasPlayer && typeof Twitch !== 'undefined') { createTwitchPlayer(ch, location.hostname || 'localhost'); }
     if (!d.live && hasPlayer) destroyPlayer(ch);
   });
@@ -1307,7 +1454,8 @@ function destroyPlayer(ch) {
       const el = document.getElementById(`player-${ch}`); 
       if (el) el.innerHTML = ''; 
     } catch (e) {} 
-    delete twitchPlayers[ch]; 
+    delete twitchPlayers[ch];
+    audioOnlyChannels.delete(ch);
   } 
 }
 
@@ -1316,7 +1464,11 @@ function destroyAllPlayers() {
   Object.keys(playerCards).forEach(ch => { 
     if (playerCards[ch] && playerCards[ch].parentNode) playerCards[ch].remove(); 
     delete playerCards[ch]; 
-  }); 
+  });
+  if (playerObserver) {
+    playerObserver.disconnect();
+    playerObserver = null;
+  }
 }
 
 async function refreshAll() {
@@ -1337,7 +1489,7 @@ async function refreshAll() {
       const sp = new URLSearchParams(); const up = new URLSearchParams();
       batch.forEach(l => { sp.append('user_login', l); up.append('login', l); });
       sp.append('first', '100');
-      const [sR, uR] = await Promise.all([twitchFetch(`streams?${sp.toString()}`), twitchFetch(`users?${up.toString()}`)]);
+      const [sR, uR] = await Promise.all([twitchFetch(`streams?${sp.toString()}`), twitchFetch(`users?${up.toString()}`}`);
       allStreams.push(...(sR.data || [])); allUsers.push(...(uR.data || []));
     }
     const sMap = {}; allStreams.forEach(s => sMap[s.user_login.toLowerCase()] = s);
