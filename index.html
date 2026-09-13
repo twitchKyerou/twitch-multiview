@@ -180,7 +180,6 @@ body.has-bg-image {
   .toggle { font-size: 0.6rem; }
   .toggle-panel-btn { width: 24px; height: 24px; font-size: 0.8rem; }
 }
-
 .header {
   background: rgba(14, 14, 16, 0.95);
   backdrop-filter: blur(10px);
@@ -269,7 +268,7 @@ button {
   background: #9146ff;
   color: white;
   border: none;
-  padding: 0.6rem 1rem;
+    padding: 0.6rem 1rem;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
@@ -605,11 +604,11 @@ button.success:hover:not(:disabled) { background: #15703d; }
 .modal-content {
   background: #18181b;
   border: 1px solid #2d2d33;
-  border-radius: 12px;
+    border-radius: 12px;
   padding: 1.5rem;
-  max-width: 750px;
+    max-width: 750px;
   width: 100%;
-  max-height: 90vh;
+    max-height: 90vh;
   overflow-y: auto;
 }
 .modal-header {
@@ -624,7 +623,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
   border: none;
   color: #adadb8;
   font-size: 1.5rem;
-  cursor: pointer;
+    cursor: pointer;
   padding: 0;
   width: 30px; height: 30px;
 }
@@ -673,8 +672,8 @@ button.success:hover:not(:disabled) { background: #15703d; }
   border-radius: 8px;
   color: #efeff1;
   font-family: monospace;
-  font-size: 0.9rem;
-  resize: vertical;
+    font-size: 0.9rem;
+    resize: vertical;
   margin-bottom: 0.5rem;
 }
 .import-textarea:focus { outline: none; border-color: #9146ff; }
@@ -689,7 +688,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.9rem;
-  z-index: 2000;
+    z-index: 2000;
   animation: toastIn 0.3s ease-out, toastOut 0.3s ease-in 2s forwards;
 }
 @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } }
@@ -726,13 +725,13 @@ button.success:hover:not(:disabled) { background: #15703d; }
   border-radius: 50%;
   background: #2d2d33;
   color: #bf94ff;
-  font-size: 0.7rem;
-  font-weight: 700;
+    font-size: 0.7rem;
+    font-weight: 700;
   cursor: pointer;
   transition: background 0.2s;
   border: none;
   padding: 0;
-  flex-shrink: 0;
+    flex-shrink: 0;
 }
 .info-tag:hover { background: #9146ff; color: white; }
 .privacy-banner {
@@ -754,7 +753,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
   background: transparent;
   border: 1px solid #ff9900;
   color: #ffd9a0;
-  padding: 0.3rem 0.6rem;
+    padding: 0.3rem 0.6rem;
   font-size: 0.75rem;
   border-radius: 4px;
   cursor: pointer;
@@ -785,10 +784,10 @@ button.success:hover:not(:disabled) { background: #15703d; }
   color: white;
   border-radius: 50%;
   display: flex;
-  align-items: center;
+    align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.85rem;
+    font-size: 0.85rem;
 }
 .help-steps li code {
   background: #2d2d33;
@@ -970,7 +969,7 @@ button.success:hover:not(:disabled) { background: #15703d; }
       <label class="toggle">
         <input type="checkbox" id="muteAllToggle" />
         <span class="toggle-switch"></span>
-        <span>🔇 Mute</span>
+        <span id="muteAllLabel">🔇 Mute</span>
       </label>
       <label class="toggle">
         <input type="checkbox" id="pauseOffscreenToggle" checked />
@@ -1109,8 +1108,8 @@ button.success:hover:not(:disabled) { background: #15703d; }
 </div>
 
 <div class="grid-container" id="gridContainer">
-  <div class="container">
-    <div id="grid" class="grid">
+    <div class="container">
+        <div id="grid" class="grid">
       <div class="empty-state"><p>Añade canales para empezar</p></div>
     </div>
   </div>
@@ -1238,7 +1237,7 @@ if (customAlertSound) {
   try {
     alertAudio = new Audio(customAlertSound);
     alertAudio.volume = alertVolume;
-    $('soundStatus').textContent = '✅ Sonido cargado';
+    $('volumeStatus').textContent = '✅ Sonido cargado';
   } catch(e) {}
 }
 
@@ -1410,7 +1409,7 @@ $('alertSoundFile').addEventListener('change', e => {
     return;
   }
   const reader = new FileReader();
-  reader.onload = ev => {
+    reader.onload = ev => {
     customAlertSound = ev.target.result;
     alertAudio = new Audio(customAlertSound);
     alertAudio.volume = alertVolume;
@@ -1466,7 +1465,7 @@ function handleImageUpload(e, key) {
     return;
   }
   const reader = new FileReader();
-  reader.onload = ev => {
+    reader.onload = ev => {
     customConfig[key] = ev.target.result;
     if (key === 'logo') $('customLogo').value = '[Archivo local]';
     if (key === 'bgImage') $('customBgImage').value = '[Archivo local]';
@@ -1767,13 +1766,13 @@ function importFile(e) {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = ev => {
+    reader.onload = ev => {
     try {
       const data = JSON.parse(ev.target.result);
       if (data.channels && Array.isArray(data.channels)) {
         channels = [...new Set([...channels, ...data.channels.map(c => c.toLowerCase().trim()).filter(Boolean)])];
         if (data.disabled) {
-          disabledChannels = [...new Set([...disabledChannels, ...data.disabled.filter(c => channels.includes(c))])];
+        disabledChannels = [...new Set([...disabledChannels, ...data.disabled.filter(c => channels.includes(c))])];
         }
         if (data.keywords) {
           highlightWords = [...new Set([...highlightWords, ...data.keywords])];
@@ -1786,9 +1785,7 @@ function importFile(e) {
           applyCustomization();
         }
         saveChannels();
-        renderGrid();
-        renderManageList();
-        updateChannelCount();
+        renderGrid(); renderManageList(); updateChannelCount();
         showToast(`📂 ${data.channels.length} importados`);
         if (accessToken) refreshAll();
       } else {
@@ -1831,10 +1828,7 @@ function importRawText(text, replace) {
     channels = [...channels, ...parsed.filter(c => !channels.includes(c))];
   }
   if (channels.length > 100) channels = channels.slice(0, 100);
-  saveChannels();
-  renderGrid();
-  renderManageList();
-  updateChannelCount();
+  saveChannels(); renderGrid(); renderManageList(); updateChannelCount();
   showToast(`📥 ${parsed.length} procesados`);
   if (accessToken) refreshAll();
 }
@@ -1905,26 +1899,22 @@ function playDefaultSound() {
     const now = audioCtx.currentTime;
     const osc1 = audioCtx.createOscillator();
     const g1 = audioCtx.createGain();
-    osc1.connect(g1);
-    g1.connect(audioCtx.destination);
+    osc1.connect(g1); g1.connect(audioCtx.destination);
     osc1.type = 'sine';
     osc1.frequency.setValueAtTime(880, now);
     g1.gain.setValueAtTime(0, now);
     g1.gain.linearRampToValueAtTime(0.3, now + 0.01);
     g1.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
-    osc1.start(now);
-    osc1.stop(now + 0.15);
+    osc1.start(now); osc1.stop(now + 0.15);
     const osc2 = audioCtx.createOscillator();
     const g2 = audioCtx.createGain();
-    osc2.connect(g2);
-    g2.connect(audioCtx.destination);
+    osc2.connect(g2); g2.connect(audioCtx.destination);
     osc2.type = 'sine';
     osc2.frequency.setValueAtTime(1320, now + 0.18);
     g2.gain.setValueAtTime(0, now + 0.18);
     g2.gain.linearRampToValueAtTime(0.3, now + 0.19);
     g2.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
-    osc2.start(now + 0.18);
-    osc2.stop(now + 0.35);
+    osc2.start(now + 0.18); osc2.stop(now + 0.35);
   } catch(e) {
     console.error(e);
   }
@@ -2049,10 +2039,7 @@ function removeChannel(ch) {
   delete channelData[ch];
   disconnectChat(ch);
   destroyPlayer(ch);
-  saveChannels();
-  renderGrid();
-  renderManageList();
-  updateChannelCount();
+  saveChannels(); renderGrid(); renderManageList(); updateChannelCount();
 }
 
 function renderGrid() {
@@ -2109,9 +2096,7 @@ function deactivateChannel(ch) {
     disconnectChat(ch);
     destroyPlayer(ch);
     localStorage.setItem('tw_disabled', JSON.stringify(disabledChannels));
-    renderGrid();
-    renderManageList();
-    updateChannelCount();
+    renderGrid(); renderManageList(); updateChannelCount();
     showToast(`💤 ${ch} desactivado`);
   }
 }
@@ -2333,7 +2318,7 @@ function destroyPlayer(ch) {
     try {
       const el = document.getElementById(`player-${ch}`);
       if (el) el.innerHTML = '';
-    } catch(e) {}
+    } catch (e) {}
     delete twitchPlayers[ch];
   }
 }
@@ -2428,10 +2413,7 @@ function closePlayerSidebar() {
 
 async function refreshAll() {
   const active = getActiveChannels();
-  if (!accessToken) {
-    setApiStatus('No autenticado', 'error');
-    return;
-  }
+  if (!accessToken) { setApiStatus('No autenticado', 'error'); return; }
   if (active.length === 0) {
     setApiStatus('Sin canales activos', '');
     clearTimeout(pollTimer);
@@ -2441,35 +2423,25 @@ async function refreshAll() {
   setApiStatus('Actualizando...', '');
   try {
     const batches = [];
-    for (let i = 0; i < active.length; i += 100) {
-      batches.push(active.slice(i, i + 100));
-    }
+    for (let i = 0; i < active.length; i += 100) batches.push(active.slice(i, i + 100));
     let allStreams = [], allUsers = [];
     for (const batch of batches) {
-      const sp = new URLSearchParams();
-      const up = new URLSearchParams();
-      batch.forEach(login => {
-        sp.append('user_login', login);
-        up.append('login', login);
-      });
+      const sp = new URLSearchParams(); const up = new URLSearchParams();
+      batch.forEach(l => { sp.append('user_login', l); up.append('login', l); });
       sp.append('first', '100');
       const [sR, uR] = await Promise.all([
         twitchFetch(`streams?${sp.toString()}`),
         twitchFetch(`users?${up.toString()}`)
       ]);
-      allStreams.push(...(sR.data || []));
-      allUsers.push(...(uR.data || []));
+      allStreams.push(...(sR.data || [])); allUsers.push(...(uR.data || []));
     }
-    const sMap = {};
-    allStreams.forEach(s => sMap[s.user_login.toLowerCase()] = s);
-    const uMap = {};
-    allUsers.forEach(u => uMap[u.login.toLowerCase()] = u);
+    const sMap = {}; allStreams.forEach(s => sMap[s.user_login.toLowerCase()] = s);
+    const uMap = {}; allUsers.forEach(u => uMap[u.login.toLowerCase()] = u);
     let liveCount = 0;
     active.forEach(ch => {
       const cl = ch.toLowerCase();
       if (!channelData[ch]) channelData[ch] = { mentioned: false };
-      const s = sMap[cl];
-      const u = uMap[cl];
+      const s = sMap[cl]; const u = uMap[cl];
       channelData[ch].viewers = s?.viewer_count || 0;
       channelData[ch].live = !!s;
       channelData[ch].avatar = u?.profile_image_url || '';
@@ -2526,20 +2498,13 @@ function connectChat(channel) {
   ws.onmessage = e => {
     for (const line of e.data.split('\r\n')) {
       if (!line) continue;
-      if (line.startsWith('PING')) {
-        ws.send('PONG :tmi.twitch.tv');
-        continue;
-      }
+      if (line.startsWith('PING')) { ws.send('PONG :tmi.twitch.tv'); continue; }
       parseIrcMessage(channel, line);
     }
   };
-  ws.onerror = () => {
-    delete chatSockets[channel];
-    updateChatStatus();
-  };
+  ws.onerror = () => { delete chatSockets[channel]; updateChatStatus(); };
   ws.onclose = () => {
-    delete chatSockets[channel];
-    updateChatStatus();
+    delete chatSockets[channel]; updateChatStatus();
     if (channels.includes(channel) && isChannelActive(channel) && channelData[channel]?.live) {
       setTimeout(() => connectChat(channel), 5000);
     }
@@ -2592,12 +2557,10 @@ function setTokenStatus(t, s) {
   $('tokenStatus').textContent = t;
   $('tokenDot').className = 'status-dot '+(s==='ok'?'ok':s==='error'?'error':'');
 }
-
 function setApiStatus(t, s) {
-  $('apiStatus').textContent = t;
-  $('apiDot').className = 'status-dot '+(s==='ok'?'ok':s==='error'?'error':'');
+  $('apiStatus').textContent=t;
+  $('apiDot').className='status-dot '+(s==='ok'?'ok':s==='error'?'error':'');
 }
-
 function updateChatStatus() {
   const c = Object.keys(chatSockets).length;
   $('chatStatus').textContent = c>0 ? `${c} chat(s)` : 'Chat inactivo';
